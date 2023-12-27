@@ -23,7 +23,7 @@ public class Exercicio09 {
             horaTermino += 24;
         }
 
-        if (horaTermino == 0 && horaInicio == 00)
+        if (horaTermino == 0 && horaInicio == 00 && minutoTermino < minutoInicio)
         {
             horaTermino += 24;
         }
