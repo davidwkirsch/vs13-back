@@ -49,7 +49,8 @@ public class Exercicio10 {
         System.out.println("Média de aproveitamento: " + mediaAproveitamento);
         System.out.println("Conceito: " + conceito);
 
-        if (conceito == 'A' || conceito == 'B' || conceito == 'C') {
+        if (conceito == 'A' || conceito == 'B' || conceito == 'C')
+        {
             System.out.println("APROVADO");
         }
         else {

@@ -38,8 +38,5 @@ public class Exercicio09 {
         {
             System.out.println("O jogo durou " + duracaoHoras + "h" + duracaoMinutos + "min");
         }
-
-
-
     }
 }
