@@ -4,8 +4,6 @@ public class Exercicio08 {
 
     public static void main(String[] args)
     {
-        double salarioNovo = 0;
-
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Digite o salário atual: ");
@@ -14,7 +12,7 @@ public class Exercicio08 {
         System.out.print("Digite o cargo: ");
         String cargo = sc.nextLine().toLowerCase();
 
-        salarioNovo = switch (cargo) {
+        double salarioNovo = switch (cargo) {
             case "gerente" -> salarioAntigo * 1.1;
             case "engenheiro" -> salarioAntigo * 1.2;
             case "tecnico" -> salarioAntigo * 1.3;
