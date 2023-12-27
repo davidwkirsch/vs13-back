@@ -23,6 +23,11 @@ public class Exercicio09 {
             horaTermino += 24;
         }
 
+        if (horaTermino == 0 && horaInicio == 00)
+        {
+            horaTermino += 24;
+        }
+
         int totalHorasEmMinutos = (horaTermino - horaInicio) * 60;
         int totalMinutos = minutoTermino - minutoInicio;
         int tempoTotal = totalHorasEmMinutos + totalMinutos;
