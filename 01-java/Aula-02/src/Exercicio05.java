@@ -4,18 +4,22 @@ public class Exercicio05
 {
     public static void main(String[] args)
     {
-        double[][] precoItens = {
-                {10.0, 20.0, 30.0},
-                {25.0, 15.0, 35.0},
-                {30.0, 10.0, 25.0},
-                {15.0, 30.0, 20.0},
-                {20.0, 250.0, 15.0},
-                {35.0, 58.0, 30.0},
-                {5.0, 35.0, 10.0},
-                {30.0, 15.0, 25.0},
-                {10.0, 30.0, 25.0},
-                {25.0, 20.0, 55.0}
-        };
+
+        Scanner sc = new Scanner(System.in);
+
+        double[][] precoItens = new double[10][3];
+
+
+        for (int i = 0; i < 10; i++)
+        {
+            System.out.printf("Insira os preços do %dº produto: \n", i+1);
+            for (int j = 0; j < 3; j++)
+            {
+                System.out.printf("Preços no %dº mercado: R$", j+1);
+                precoItens[i][j] = sc.nextDouble();
+            }
+        }
+
         double totalMercadoUm = 0,
                 totalMercadoDois = 0,
                 totalMercadoTres = 0;
