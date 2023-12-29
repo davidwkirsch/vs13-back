@@ -9,6 +9,8 @@ public class Main {
 //    NÃO MANIPULAR A VARIÁVEL CHEQUE ESPECIAL
     public static void main(String[] args)
     {
-        
+        //TODO: ARRUMAR O SAQUE CONSIDERANDO CHEQUE ESPECIAL
+        //TODO: ADICIONAR ALGUMA VERIFICAÇÃO SE A PESSOA TEM UM SEGUNDO CONTATO OU ENDEREÇO
+        //TODO: TODOS OS DADOS DA MAIS E TESTES
     }
 }
