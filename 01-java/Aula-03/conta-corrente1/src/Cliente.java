@@ -6,17 +6,21 @@ public class Cliente {
 
     public void imprimirContatos()
     {
-
+        contatos[0].imprimirContato();
+        contatos[1].imprimirContato();
     }
 
     public void imprimirEnderecos()
     {
-
+        enderecos[0].imprimirEndereco();
+        enderecos[1].imprimirEndereco();
     }
 
     public void imprimirCliente()
     {
-
+        System.out.printf("\nNome: %s\nCPF: %s\n", nome, cpf);
+        imprimirContatos();
+        imprimirEnderecos();
     }
 
 

@@ -30,14 +30,23 @@ public class ContaCorrente {
         return true;
     }
 
-    public boolean retornarSaldoComChequeEspecial()
+    public double retornarSaldoComChequeEspecial()
     {
-        return true;
+        return this.saldo + this.chequeEspecial;
     }
 
-    public boolean transferir(String ContaCorrente, double valor)
+    public boolean transferir(ContaCorrente conta, double valor)
     {
-        return true;
+        if (valor > this.saldo)
+        {
+            this.saldo -= valor;
+            conta.saldo += valor;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }
