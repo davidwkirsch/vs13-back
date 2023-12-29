@@ -1,5 +1,23 @@
 public class Cliente {
-    String nomeCliente;
-    String cpfCliente;
+    String nome,
+            cpf;
+    Contato[] contatos = new Contato[2];
+    Endereco[] enderecos = new Endereco[2];
+
+    public void imprimirContatos()
+    {
+
+    }
+
+    public void imprimirEnderecos()
+    {
+
+    }
+
+    public void imprimirCliente()
+    {
+
+    }
+
 
 }
