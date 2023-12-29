@@ -5,13 +5,17 @@ public class Contato {
 
     public void imprimirContato()
     {
-        if (tipo == 1)
+        if (tipo != 1 && tipo != 2)
         {
-            System.out.printf("Contato residencial: %s", telefone);
+            System.out.print("");
+        }
+        else if (tipo == 1)
+        {
+            System.out.printf("\nContato residencial: %s", telefone);
         }
         else
         {
-            System.out.printf("Contato comercial: %s", telefone);
+            System.out.printf("\nContato comercial: %s", telefone);
         }
     }
 }

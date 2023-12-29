@@ -2,7 +2,7 @@ public class Endereco {
     int tipo,
             numero;
     String logradouro,
-            complemento,
+            complemento = "",
             cep,
             cidade,
             estado,
@@ -10,7 +10,11 @@ public class Endereco {
 
     public void imprimirEndereco()
     {
-        if (tipo == 1)
+        if (this.tipo != 1 && this.tipo != 2)
+        {
+            System.out.print("");
+        }
+        else if (this.tipo == 1)
         {
             System.out.printf("\nEndereço residencial: %s, Nº %d, %s, %s - %s, %s - %s",
                     logradouro, numero, complemento, cidade, cep, estado, pais);
