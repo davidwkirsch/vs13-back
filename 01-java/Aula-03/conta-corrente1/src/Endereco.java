@@ -12,11 +12,13 @@ public class Endereco {
     {
         if (tipo == 1)
         {
-            System.out.printf("\n");
+            System.out.printf("\nEndereço residencial: %s, Nº %d, %s, %s - %s, %s - %s",
+                    logradouro, numero, complemento, cidade, cep, estado, pais);
         }
         else
         {
-            System.out.println("\n");
+            System.out.printf("\nEndereço comercial: %s, Nº %d, %s, %s - %s, %s - %s",
+                    logradouro, numero, complemento, cidade, cep, estado, pais);
         }
     }
 }
