@@ -1,8 +1,14 @@
 public class Contato {
-    String descricao,
+    private String descricao,
     telefone;
-    int tipo;
+    private int tipo;
 
+    public Contato() {}
+    public Contato(int tipo, String descricao, String telefone) {
+        this.tipo = tipo;
+        this.descricao = descricao;
+        this.telefone = telefone;
+    }
     public void imprimirContato()
     {
         if (tipo != 1 && tipo != 2)
@@ -17,5 +23,29 @@ public class Contato {
         {
             System.out.printf("\nContato comercial: %s", telefone);
         }
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 }
