@@ -4,10 +4,10 @@ public class Contato {
     private int tipo;
 
     public Contato() {}
-    public Contato(String descricao, String telefone, int tipo) {
+    public Contato(int tipo, String descricao, String telefone) {
+        this.tipo = tipo;
         this.descricao = descricao;
         this.telefone = telefone;
-        this.tipo = tipo;
     }
     public void imprimirContato()
     {

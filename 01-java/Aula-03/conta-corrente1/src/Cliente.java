@@ -1,16 +1,18 @@
 public class Cliente {
-    String nome,
+    private String nome,
             cpf;
-    Contato[] contatos = new Contato[2];
-    Endereco[] enderecos = new Endereco[2];
+    private Contato[] contatos = new Contato[2];
+    private Endereco[] enderecos = new Endereco[2];
 
     public Cliente() {
     }
     public Cliente(String nome, String cpf, Contato[] contatos, Endereco[] enderecos) {
         this.nome = nome;
         this.cpf = cpf;
-        this.contatos = contatos;
-        this.enderecos = enderecos;
+        this.contatos[0] = contatos[0];
+        if (contatos[1] != null)  {this.contatos[1] = contatos[1];}
+        this.enderecos[0] = enderecos[0];
+        if (enderecos[1] != null) {this.enderecos[1] = enderecos[1];}
     }
 
     public void imprimirContatos()

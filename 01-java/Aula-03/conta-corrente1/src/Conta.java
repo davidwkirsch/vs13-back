@@ -13,11 +13,12 @@ public class Conta implements Movimentacao
         this.cliente = cliente;
     }
 
+    @Override
     public boolean sacar(double valorSacado)
     {
-        if (valorSacado <= super.getSaldo()+this.chequeEspecial && super.getSaldo()+getChequeEspecial() > 0 && valorSacado > 0)
+        if (valorSacado <= getSaldo() && valorSacado > 0)
         {
-            super.setSaldo(super.getSaldo() - valorSacado);
+            setSaldo(getSaldo() - valorSacado);
             System.out.println("\nValor sacado com sucesso!");
             return true;
         }
@@ -33,22 +34,25 @@ public class Conta implements Movimentacao
         }
     }
 
+    @Override
     public boolean depositar(double valorDeposito)
     {
         if (valorDeposito > 0) {
-            super.setSaldo(super.getSaldo() + valorDeposito);
-            System.out.println("\n Valor depositado com sucesso!");
+            setSaldo(getSaldo() + valorDeposito);
+            System.out.println("\nValor depositado com sucesso!");
             return true;
         }
         System.out.println("\nO valor depositado deve ser maior que zero!");
         return false;
     }
-    public boolean transferir(ContaCorrente conta, double valor)
-    {
-        if (valor < super.getSaldo() && valor > 0)
+
+    @Override
+    public boolean transferir(Conta conta, double valor) {
+        if (valor < getSaldo() && valor > 0)
         {
             this.saldo -= valor;
             conta.saldo += valor;
+            System.out.println("Transferência realizada com sucesso!");
             return true;
         }
         else if (valor < 0)

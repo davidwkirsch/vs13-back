@@ -1,14 +1,23 @@
 public class Endereco {
-    int tipo,
+    private int tipo,
             numero;
-    String logradouro,
-            complemento = "",
+    private String logradouro,
+            complemento,
             cep,
             cidade,
             estado,
             pais;
     public Endereco() {}
-    public Endereco(int tipo, int numero, String logradouro, String cidade, String estado, String pais) {}
+    public Endereco(int tipo, int numero, String logradouro, String complemento, String cidade, String cep, String estado, String pais) {
+        this.tipo = tipo;
+        this.numero = numero;
+        this.logradouro = logradouro;
+        this.complemento = complemento;
+        this.cidade = cidade;
+        this.cep = cep;
+        this.estado = estado;
+        this.pais = pais;
+    }
 
     public void imprimirEndereco()
     {
@@ -18,7 +27,7 @@ public class Endereco {
         }
         else if (this.tipo == 1)
         {
-            System.out.printf("\nEndereço residencial: %s, Nº %d, %s, %s - %s, %s - %s",
+            System.out.printf("Endereço residencial: %s, Nº %d, %s, %s - %s, %s - %s",
                     logradouro, numero, complemento, cidade, cep, estado, pais);
         }
         else
