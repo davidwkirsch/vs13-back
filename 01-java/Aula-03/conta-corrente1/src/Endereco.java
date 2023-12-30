@@ -7,6 +7,8 @@ public class Endereco {
             cidade,
             estado,
             pais;
+    public Endereco() {}
+    public Endereco(int tipo, int numero, String logradouro, String cidade, String estado, String pais) {}
 
     public void imprimirEndereco()
     {
@@ -24,5 +26,69 @@ public class Endereco {
             System.out.printf("\nEndereço comercial: %s, Nº %d, %s, %s - %s, %s - %s",
                     logradouro, numero, complemento, cidade, cep, estado, pais);
         }
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 }

@@ -1,6 +1,9 @@
 public class ContaCorrente {
-
-    double chequeEspecial = 300.0;
+    Cliente cliente = new Cliente();
+    String numeroConta;
+    int agencia;
+    double saldo,
+    chequeEspecial = 300.0;
 
     public void imprimirContaCorrente()
     {
