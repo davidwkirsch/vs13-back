@@ -7,7 +7,8 @@ public class Conta implements Movimentacao
     private double saldo = 0;
 
     public Conta() {}
-    public Conta(String numeroConta, int agencia, Cliente cliente) {
+    public Conta(String numeroConta, int agencia, Cliente cliente)
+    {
         this.numeroConta = numeroConta;
         this.agencia = agencia;
         this.cliente = cliente;

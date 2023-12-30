@@ -4,9 +4,9 @@ public class Cliente {
     private Contato[] contatos = new Contato[2];
     private Endereco[] enderecos = new Endereco[2];
 
-    public Cliente() {
-    }
-    public Cliente(String nome, String cpf, Contato[] contatos, Endereco[] enderecos) {
+    public Cliente() {}
+    public Cliente(String nome, String cpf, Contato[] contatos, Endereco[] enderecos)
+    {
         this.nome = nome;
         this.cpf = cpf;
         this.contatos[0] = contatos[0];
@@ -17,20 +17,24 @@ public class Cliente {
 
     public void imprimirContatos()
     {
-        if (this.contatos[0] != null) {
+        if (this.contatos[0] != null)
+        {
             this.contatos[0].imprimirContato();
         }
-        if (this.contatos[1] != null) {
+        if (this.contatos[1] != null)
+        {
             this.contatos[1].imprimirContato();
         }
     }
 
     public void imprimirEnderecos()
     {
-            if (this.enderecos[0] != null) {
+            if (this.enderecos[0] != null)
+            {
                 this.enderecos[0].imprimirEndereco();
             }
-            if (this.enderecos[1] != null) {
+            if (this.enderecos[1] != null)
+            {
                 this.enderecos[1].imprimirEndereco();
             }
     }
