@@ -1,69 +1,26 @@
-public class ContaCorrente {
+public class ContaCorrente extends Conta implements Impressao{
 
-    double chequeEspecial = 300.0;
+    private double chequeEspecial = 300.0;
 
-    public void imprimirContaCorrente()
+    @Override
+    public void imprimir()
     {
-        System.out.printf("\nConta corrente Nº: %s", this.numeroConta);
-        System.out.printf("\nAgência: %d", this.agencia);
-        System.out.printf("\nSaldo: %.2f", this.saldo);
-        System.out.printf("\nSaldo total (saldo + cheque especial): %.2f", this.saldo + this.chequeEspecial);
-    }
-
-    public boolean sacar(double valorSacado)
-    {
-        if (valorSacado <= this.saldo+this.chequeEspecial && this.saldo+this.chequeEspecial > 0 && valorSacado > 0)
-        {
-            this.saldo -= valorSacado;
-            System.out.println("\nValor sacado com sucesso!");
-            return true;
-        }
-        else if (valorSacado <= 0)
-        {
-            System.out.println("\nO valor sacado deve ser maior que zero!");
-            return false;
-        }
-        else
-        {
-            System.out.println("\nSaldo insuficiente!");
-            return false;
-        }
-
-    }
-
-    public boolean depositar(double valorDeposito)
-    {
-        if (valorDeposito > 0) {
-            this.saldo += valorDeposito;
-            System.out.println("\n Valor depositado com sucesso!");
-            return true;
-        }
-        System.out.println("\nO valor depositado deve ser maior que zero!");
-        return false;
+        System.out.printf("\nConta corrente Nº: %s", super.getNumeroConta());
+        System.out.printf("\nAgência: %d", super.getAgencia());
+        System.out.printf("\nSaldo: %.2f", super.getSaldo());
+        System.out.printf("\nSaldo total (saldo + cheque especial): %.2f", super.getSaldo() + getChequeEspecial());
     }
 
     public double retornarSaldoComChequeEspecial()
     {
-        return this.saldo + this.chequeEspecial;
+        return super.getSaldo() + getChequeEspecial();
     }
 
-    public boolean transferir(ContaCorrente conta, double valor)
+
+
+    public double getChequeEspecial()
     {
-        if (valor < this.saldo && valor > 0)
-        {
-            this.saldo -= valor;
-            conta.saldo += valor;
-            return true;
-        }
-        else if (valor < 0)
-        {
-            System.out.println("\nValor de transferência deve ser maior que zero! ");
-            return false;
-        }
-        else
-        {
-            return false;
-        }
+        return this.chequeEspecial;
     }
 
 }
