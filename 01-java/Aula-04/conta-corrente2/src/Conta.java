@@ -1,4 +1,4 @@
-public class Conta implements Movimentacao
+public class Conta implements IMovimentacao
 {
 
     private Cliente cliente = new Cliente();

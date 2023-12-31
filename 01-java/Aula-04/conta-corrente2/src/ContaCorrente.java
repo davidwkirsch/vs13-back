@@ -1,4 +1,4 @@
-public class ContaCorrente extends Conta implements Impressao{
+public class ContaCorrente extends Conta implements IImpressao {
 
     private double chequeEspecial;
 
