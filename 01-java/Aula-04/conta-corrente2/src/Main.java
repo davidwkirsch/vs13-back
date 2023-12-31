@@ -21,7 +21,7 @@ public class Main {
                 new Contato[]{contato1Cliente2, contato2Cliente2}, new Endereco[]{endereco1Cliente2, null});
 
         //Contas
-        ContaCorrente contaCliente1 = new ContaCorrente("123456", 1234, cliente1);
+        ContaCorrente contaCliente1 = new ContaCorrente("123456", 1234, cliente1, 300);
         ContaPoupanca contaCliente2 = new ContaPoupanca("333666", 1034, cliente2);
 
         //Contas iniciam zeradas, então é feito um depósito inicial em cada uma
@@ -39,6 +39,8 @@ public class Main {
         cliente2.imprimirContatos();
         contaCliente2.imprimir(); //Conta poupança, só imprime o saldo
 
+
+        System.out.println("\n\nInicio dos testes:\n");
         //Teste saque
         contaCliente1.sacar(100);
         System.out.println("Saldo após saque: " + contaCliente1.getSaldo());

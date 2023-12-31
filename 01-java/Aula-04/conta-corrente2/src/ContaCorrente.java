@@ -1,11 +1,12 @@
 public class ContaCorrente extends Conta implements Impressao{
 
-    private static double chequeEspecial = 300.0;
+    private double chequeEspecial;
 
-    public ContaCorrente(String numero, int agencia, Cliente cliente1) {
+    public ContaCorrente(String numero, int agencia, Cliente cliente1, double chequeEspecial) {
         super.setNumeroConta(numero);
         super.setAgencia(agencia);
         super.setCliente(cliente1);
+        setChequeEspecial(chequeEspecial);
     }
 
     @Override
@@ -43,8 +44,14 @@ public class ContaCorrente extends Conta implements Impressao{
         return super.getSaldo() + getChequeEspecial();
     }
 
-    public static double getChequeEspecial()
+    public double getChequeEspecial()
     {
         return chequeEspecial;
     }
+
+    public void setChequeEspecial(double valor)
+    {
+        this.chequeEspecial = valor;
+    }
+
 }
