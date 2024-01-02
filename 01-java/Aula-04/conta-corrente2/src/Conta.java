@@ -6,12 +6,7 @@ public class Conta implements IMovimentacao
     private int agencia;
     private double saldo = 0;
 
-    public Conta() {}
-    public Conta(String numeroConta, int agencia, Cliente cliente)
-    {
-        this.numeroConta = numeroConta;
-        this.agencia = agencia;
-        this.cliente = cliente;
+    public Conta() {
     }
 
     @Override

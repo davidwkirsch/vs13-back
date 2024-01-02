@@ -6,6 +6,7 @@ public class ContaPoupanca extends Conta implements IImpressao {
         super.setAgencia(agencia);
         super.setCliente(cliente1);
     }
+
     public void creditarTaxa() {
         super.setSaldo(super.getSaldo() * JUROS_MENSAL);
     }
