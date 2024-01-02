@@ -39,6 +39,27 @@ public class ContaCorrente extends Conta implements IImpressao {
             return false;
         }
     }
+
+    @Override
+    public boolean transferir(Conta conta, double valor) {
+        if (valor <= super.getSaldo() + getChequeEspecial() && super.getSaldo() + getChequeEspecial() > 0 && valor > 0)
+        {
+            super.setSaldo(super.getSaldo() - valor);
+            conta.setSaldo(conta.getSaldo() + valor);
+            System.out.println("Transferência realizada com sucesso!");
+            return true;
+        }
+        else if (valor < 0)
+        {
+            System.out.println("\nValor de transferência deve ser maior que zero! ");
+            return false;
+        }
+        else
+        {
+            System.out.println("\nSaldo insuficiente!");
+            return false;
+        }
+    }
     public double retornarSaldoComChequeEspecial()
     {
         return super.getSaldo() + getChequeEspecial();

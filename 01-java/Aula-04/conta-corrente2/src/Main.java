@@ -57,9 +57,10 @@ public class Main {
         //Teste de transferência
         System.out.println("Saldo cliente 1: " + contaCliente1.getSaldo());
         System.out.println("Saldo cliente 2: " + contaCliente2.getSaldo());
-        contaCliente1.transferir(contaCliente2, 200);
+        contaCliente1.transferir(contaCliente2, 1200);
         System.out.println("Saldo cliente 1 após transferência: " + contaCliente1.getSaldo());
         System.out.println("Saldo cliente 2 após transferência: " + contaCliente2.getSaldo());
+        contaCliente1.depositar(1200);
 
         //Teste taxa de juros
         System.out.println("Saldo do cliente 2 antes dos juros: " + contaCliente2.getSaldo());
