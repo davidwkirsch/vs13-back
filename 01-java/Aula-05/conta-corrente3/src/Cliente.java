@@ -12,10 +12,14 @@ public class Cliente {
     {
         this.nome = nome;
         this.cpf = cpf;
-        this.contatos.add(contatos[0]);
-        if (contatos[1] != null)  {this.contatos.add(contatos[1]);}
-        this.enderecos.add(enderecos[0]);
-        if (enderecos[1] != null) {this.enderecos.add(enderecos[1]);}
+        for (Contato contato : contatos)
+        {
+            if (contato != null)  {this.contatos.add(contato);}
+        }
+        for (Endereco endereco : enderecos)
+        {
+            if (endereco != null)  {this.enderecos.add(endereco);}
+        }
     }
 
     public void imprimirContatos()
