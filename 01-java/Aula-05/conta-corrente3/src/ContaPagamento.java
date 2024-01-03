@@ -1,6 +1,11 @@
 public class ContaPagamento extends Conta implements IImpressao {
 
-    static final double TAXA_SAQUE = 4.25;
+    private static final double TAXA_SAQUE = 4.25;
+
+    public ContaPagamento(String numeroConta, int agencia, Cliente cliente) {
+        super(numeroConta, agencia, cliente);
+    }
+
     @Override
     public boolean sacar(double valorSacado)
     {
