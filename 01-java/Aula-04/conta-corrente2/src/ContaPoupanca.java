@@ -14,7 +14,7 @@ public class ContaPoupanca extends Conta implements IImpressao {
     public void imprimir()
     {
         System.out.print("\n\nCONTA POUPANÇA");
-        System.out.printf("\nConta corrente Nº: %s", super.getNumeroConta());
+        System.out.printf("\nConta poupança Nº: %s", super.getNumeroConta());
         System.out.printf("\nAgência: %d", super.getAgencia());
         System.out.printf("\nSaldo: %.2f", super.getSaldo());
     }
