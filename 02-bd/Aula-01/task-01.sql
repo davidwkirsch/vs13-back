@@ -3,7 +3,7 @@ create table VEM_SER.ESTUDANTE (
     nome varchar2(200) NOT NULL,
     data_nascimento date NOT NULL,
     nr_matricula number NOT NULL UNIQUE,
-    ativo varchar2(1) NOT NULL,
+    ativo CHAR(1) NOT NULL CHECK (ativo = 'S' OR ativo = 'N'),
     CONSTRAINT estudante_pk PRIMARY KEY (id_estudante)
 );
 
