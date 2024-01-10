@@ -1,0 +1,30 @@
+-- 01
+SELECT nome FROM PAIS
+ORDER BY nome DESC;
+
+-- 02
+SELECT logradouro, cep FROM ENDERECO 
+WHERE logradouro LIKE 'A%' OR logradouro LIKE 'a%';
+
+-- 03
+ SELECT * FROM ENDERECO 
+ WHERE TRIM(cep) LIKE '%0';
+
+-- 04
+SELECT * FROM ENDERECO
+WHERE numero BETWEEN 1 AND 100;
+
+-- 05
+SELECT * FROM ENDERECO 
+WHERE UPPER(logradouro) LIKE 'RUA%'
+ORDER BY cep DESC;
+
+-- 06
+SELECT COUNT(LOGRADOURO) FROM ENDERECO
+
+-- 07
+SELECT COUNT(id_endereco), id_cidade  FROM ENDERECO
+GROUP BY id_cidade;
+
+
+
