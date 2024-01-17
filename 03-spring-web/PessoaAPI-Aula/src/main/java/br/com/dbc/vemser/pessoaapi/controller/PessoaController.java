@@ -12,8 +12,9 @@ public class PessoaController {
 
     private PessoaService pessoaService;
 
-    public PessoaController() {
-        pessoaService = new PessoaService();
+    public PessoaController(PessoaService pessoaService) {
+
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping // GET localhost:8081/pessoa
