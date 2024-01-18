@@ -29,7 +29,6 @@ public class PessoaController {
 
     @PostMapping // POST localhost:8081/pessoa
     public Pessoa create(@RequestBody Pessoa pessoa) throws Exception {
-        
         return pessoaService.create(pessoa);
     }
 

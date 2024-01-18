@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PessoaRepository {
-    private static List<Pessoa> listaPessoas = new ArrayList<>();
-    private AtomicInteger COUNTER = new AtomicInteger();
+    private static final List<Pessoa> listaPessoas = new ArrayList<>();
+    private final AtomicInteger COUNTER = new AtomicInteger();
 
     public PessoaRepository() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //18/10/2020
@@ -33,14 +33,6 @@ public class PessoaRepository {
     public List<Pessoa> list() {
         return listaPessoas;
     }
-
-//    public Pessoa update(Integer id,
-//                         Pessoa pessoaAtualizar) {
-//        pessoaAtualizar.setCpf(pessoaAtualizar.getCpf());
-//        pessoaAtualizar.setNome(pessoaAtualizar.getNome());
-//        pessoaAtualizar.setDataNascimento(pessoaAtualizar.getDataNascimento());
-//        return pessoaAtualizar;
-//    }
 
     public void delete(Pessoa pessoa) {
         listaPessoas.remove(pessoa);

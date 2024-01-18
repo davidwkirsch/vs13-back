@@ -49,10 +49,9 @@ public class PessoaService {
     }
 
     private Pessoa getPessoa(Integer id) throws Exception {
-        Pessoa pessoaRecuperada = pessoaRepository.list().stream()
+        return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Pessoa não encontrada!"));
-        return pessoaRecuperada;
     }
 }

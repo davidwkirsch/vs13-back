@@ -49,11 +49,10 @@ public class ContatoService {
 
     private Contato getContato(Integer id) throws Exception {
 
-        Contato contatoRecuperado = contatoRepository.list().stream()
+        return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Contato não encontrado!"));
-        return contatoRecuperado;
     }
 
 }
