@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ContatoRepository {
-    private static List<Contato> listaContatos = new ArrayList<>();
-    private AtomicInteger COUNTER = new AtomicInteger();
+    private static final List<Contato> listaContatos = new ArrayList<>();
+    private final AtomicInteger COUNTER = new AtomicInteger();
 
     public ContatoRepository() {
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*1*/, 1, TipoContato.ofTipo(1), "51990908080", "whats"));

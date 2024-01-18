@@ -17,9 +17,9 @@ public class ContatoController {
         this.contatoService = contatoService;
     }
 
-
     @GetMapping // GET localhost:8080/contato
     public List<Contato> list() {
+
         return contatoService.list();
     }
 
