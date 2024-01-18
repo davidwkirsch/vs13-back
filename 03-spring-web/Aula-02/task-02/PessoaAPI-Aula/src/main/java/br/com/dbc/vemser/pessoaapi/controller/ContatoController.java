@@ -10,20 +10,21 @@ import java.util.List;
 @RequestMapping("/contato") // localhost:8080/contato
 public class ContatoController {
 
-    private ContatoService contatoService;
+    private final ContatoService contatoService;
 
-    public ContatoController() {
-        contatoService = new ContatoService();
+    public ContatoController(ContatoService contatoService) {
+
+        this.contatoService = contatoService;
     }
-
 
     @GetMapping // GET localhost:8080/contato
     public List<Contato> list() {
+
         return contatoService.list();
     }
 
-    @GetMapping("/") // GET localhost:8081/contato/?pessoa=1
-    public List<Contato> listByName(@RequestParam("pessoa") Integer idPessoa) {
+    @GetMapping("/{idContato}") // GET localhost:8081/contato/1
+    public List<Contato> listByName(@PathVariable("idContato") Integer idPessoa) {
         return contatoService.listByIdPessoa(idPessoa);
     }
 

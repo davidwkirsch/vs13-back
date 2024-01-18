@@ -23,8 +23,8 @@ public class ContatoController {
         return contatoService.list();
     }
 
-    @GetMapping("/") // GET localhost:8081/contato/?pessoa=1
-    public List<Contato> listByName(@RequestParam("pessoa") Integer idPessoa) {
+    @GetMapping("/{idContato}") // GET localhost:8081/contato/1
+    public List<Contato> listByName(@PathVariable("idContato") Integer idPessoa) {
         return contatoService.listByIdPessoa(idPessoa);
     }
 
