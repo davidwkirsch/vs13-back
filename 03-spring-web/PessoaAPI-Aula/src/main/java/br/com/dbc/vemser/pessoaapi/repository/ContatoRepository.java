@@ -21,8 +21,13 @@ public class ContatoRepository {
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*1*/, 2, TipoContato.ofTipo(1), "51910012002", "pessoal"));
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*1*/, 4, TipoContato.ofTipo(2), "51888888888", "cel"));
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*1*/, 5, TipoContato.ofTipo(2), "51920604090", "celular"));
+
+
     }
-    
+
+    public Integer getNewIdContato() {
+        return COUNTER.incrementAndGet();
+    }
     public Contato create(Contato contato) {
         contato.setIdContato(COUNTER.incrementAndGet());
         listaContatos.add(contato);

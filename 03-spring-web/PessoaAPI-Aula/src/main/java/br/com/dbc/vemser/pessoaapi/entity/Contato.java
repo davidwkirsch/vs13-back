@@ -1,10 +1,25 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import javax.validation.constraints.*;
+
 public class Contato {
-    private Integer idContato;
+
+    @NotNull(message = "O id do contato não pode ser nulo")
+    private Integer idContato = 0;
+
+    @NotNull(message = "O id da pessoa não pode ser nulo")
     private Integer idPessoa;
+
+    @NotNull(message = "O tipo de contato não pode ser nulo")
     private TipoContato tipoContato;
+
+    @NotBlank(message = "O número não pode ser em branco")
+    @Pattern(regexp = "\\d+", message = "O número deve conter apenas dígitos")
+    @Size(max = 13, message = "O número deve conter no máximo 13 dígitos")
     private String numero;
+
+    @Size(max = 200, message = "A descrição não pode ter mais de 200 caracteres")
+    @NotBlank(message = "A descrição não pode ser vazia ou nula")
     private String descricao;
 
     public Contato() {

@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ public class PessoaService {
 
     public Pessoa create(Pessoa pessoa) throws Exception {
         if (StringUtils.isBlank(pessoa.getNome())) {
-            throw new Exception("Nome inválido!");
+            throw new RegraDeNegocioException("Nome inválido!");
         }
         return pessoaRepository.create(pessoa);
     }
@@ -48,10 +49,10 @@ public class PessoaService {
         return pessoaRepository.listByName(nome);
     }
 
-    private Pessoa getPessoa(Integer id) throws Exception {
+    public Pessoa getPessoa(Integer id) throws Exception {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não encontrada!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
     }
 }

@@ -4,6 +4,7 @@ import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,10 +31,11 @@ public class EnderecoRepository {
                 "R. teste 5", 1005, "ap",
                 "90900-000", "Ivoti", "RS", "Brasil"));
     }
+    public Integer getNewIdEndereco() {
+        return COUNTER.incrementAndGet();
+    }
     
-    public Endereco create(Integer idPessoa, Endereco endereco) {
-        endereco.setIdEndereco(COUNTER.incrementAndGet());
-        endereco.setIdPessoa(idPessoa);
+    public Endereco create(Endereco endereco) throws Exception{
         listaEnderecos.add(endereco);
         return endereco;
     }
