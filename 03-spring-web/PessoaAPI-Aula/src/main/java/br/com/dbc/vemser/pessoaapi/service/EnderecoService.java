@@ -17,8 +17,8 @@ public class EnderecoService {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public Endereco create(Endereco endereco){
-        return enderecoRepository.create(endereco);
+    public Endereco create(Integer idPessoa, Endereco endereco){
+        return enderecoRepository.create(idPessoa, endereco);
     }
 
     public List<Endereco> list(){

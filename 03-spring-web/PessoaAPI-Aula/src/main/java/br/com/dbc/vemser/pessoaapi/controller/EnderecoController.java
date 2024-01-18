@@ -32,9 +32,9 @@ public class EnderecoController {
         return enderecoService.getByIdPessoa(idPessoa);
     }
 
-    @PostMapping // POST localhost:8080/endereco
-    public Endereco create(@RequestBody Endereco endereco) {
-        return enderecoService.create(endereco);
+    @PostMapping ("/{idPessoa}")// POST localhost:8080/endereco
+    public Endereco create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody Endereco endereco) {
+        return enderecoService.create(idPessoa, endereco);
     }
 
     @PutMapping("/{idEndereco}") // PUT localhost:8080/endereco/1000
