@@ -5,6 +5,8 @@ import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class EnderecoService {
@@ -19,33 +21,40 @@ public class EnderecoService {
         return enderecoRepository.create(endereco);
     }
 
-
     public List<Endereco> list(){
         return enderecoRepository.list();
     }
 
     public Endereco update(Integer id,
                          Endereco enderecoAtualizar) throws Exception {
-        Endereco enderecoRecuperado = getEndereco(id);
+        Endereco enderecoRecuperado = getEnderecoById(id);
 
         enderecoRecuperado.setIdPessoa(enderecoAtualizar.getIdPessoa());
+        enderecoRecuperado.setTipoEndereco(enderecoAtualizar.getTipoEndereco());
+        enderecoRecuperado.setLogradouro(enderecoAtualizar.getLogradouro());
         enderecoRecuperado.setNumero(enderecoAtualizar.getNumero());
-//        enderecoRecuperado.setDescricao(enderecoAtualizar.getDescricao());
-//        enderecoRecuperado.setTipoEndereco(enderecoAtualizar.getTipoEndereco());
+        enderecoRecuperado.setComplemento(enderecoAtualizar.getComplemento());
+        enderecoRecuperado.setCep(enderecoAtualizar.getCep());
+        enderecoRecuperado.setCidade(enderecoAtualizar.getCidade());
+        enderecoRecuperado.setEstado(enderecoAtualizar.getEstado());
+        enderecoRecuperado.setPais(enderecoAtualizar.getPais());
 
         return enderecoRecuperado;
     }
 
     public void delete(Integer id) throws Exception {
-        Endereco enderecoRecuperado = getEndereco(id);
+        Endereco enderecoRecuperado = getEnderecoById(id);
         enderecoRepository.delete(enderecoRecuperado);
     }
 
-    public List<Endereco> listByIdPessoa(Integer idPessoa) {
-        return enderecoRepository.listByIdPessoa(idPessoa);
+    public List<Endereco> getByIdPessoa(Integer idPessoa) throws Exception {
+        return enderecoRepository.list()
+                .stream()
+                .filter(endereco -> Objects.equals(endereco.getIdPessoa(), idPessoa))
+                .collect(Collectors.toList());
     }
 
-    private Endereco getEndereco(Integer id) throws Exception {
+    public Endereco getEnderecoById(Integer id) throws Exception {
 
         Endereco enderecoRecuperado = enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))

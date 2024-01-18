@@ -12,6 +12,21 @@ public class Endereco {
     private String estado;
     private String pais;
 
+    public Endereco(Integer idPessoa, Integer idEndereco, TipoEndereco tipo,
+                    String logradouro, Integer numero, String complemento,
+                    String cep, String cidade, String estado, String pais) {
+        this.idPessoa = idPessoa;
+        this.idEndereco = idEndereco;
+        this.tipo = tipo;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+    }
+
     public Integer getIdPessoa() {
         return idPessoa;
     }
@@ -28,11 +43,11 @@ public class Endereco {
         this.idEndereco = idEndereco;
     }
 
-    public TipoEndereco getTipo() {
+    public TipoEndereco getTipoEndereco() {
         return tipo;
     }
 
-    public void setTipo(TipoEndereco tipo) {
+    public void setTipoEndereco(TipoEndereco tipo) {
         this.tipo = tipo;
     }
 

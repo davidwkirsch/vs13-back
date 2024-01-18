@@ -23,13 +23,13 @@ public class EnderecoController {
     }
 
     @GetMapping("/{idEndereco}") // GET localhost:8081/endereco/?pessoa=1
-    public List<Endereco> listByName(@RequestParam("pessoa") Integer idPessoa) {
-        return enderecoService.listByIdPessoa(idPessoa);
+    public Endereco listByIdEndereco(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
+        return enderecoService.getEnderecoById(idEndereco);
     }
 
-    @GetMapping("//{idPessoa}/pessoa") // GET localhost:8081/endereco/?pessoa=1
-    public List<Endereco> listByName(@RequestParam("pessoa") Integer idPessoa) {
-        return enderecoService.listByIdPessoa(idPessoa);
+    @GetMapping("/{idPessoa}/pessoa") // GET localhost:8081/endereco/?pessoa=1
+    public List<Endereco> listByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception {
+        return enderecoService.getByIdPessoa(idPessoa);
     }
 
     @PostMapping // POST localhost:8080/endereco

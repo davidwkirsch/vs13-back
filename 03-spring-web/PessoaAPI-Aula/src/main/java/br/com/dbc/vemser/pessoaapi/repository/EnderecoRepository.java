@@ -15,13 +15,23 @@ public class EnderecoRepository {
     private static final List<Endereco> listaEnderecos = new ArrayList<>();
     private final AtomicInteger COUNTER = new AtomicInteger();
 
-//    public EnderecoRepository() {
-//        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 1, TipoEndereco.ofTipo(1), "51990908080", "whats"));
-//        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 2, TipoEndereco.ofTipo(2), "5135352020", "fixo"));
-//        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 2, TipoEndereco.ofTipo(1), "51910012002", "pessoal"));
-//        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 4, TipoEndereco.ofTipo(2), "51888888888", "cel"));
-//        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 5, TipoEndereco.ofTipo(2), "51920604090", "celular"));
-//    }
+    public EnderecoRepository() {
+        listaEnderecos.add(new Endereco(1, COUNTER.incrementAndGet() /*1*/, TipoEndereco.ofTipo(2),
+                "R. teste 1", 1001, "casa",
+               "90900-000", "Ivoti", "RS", "Brasil"));
+        listaEnderecos.add(new Endereco(1, COUNTER.incrementAndGet() /*1*/, TipoEndereco.ofTipo(1),
+                "R. teste 2", 1002, "casa azul",
+                "90900-000", "Ivoti", "RS", "Brasil"));
+        listaEnderecos.add(new Endereco(1, COUNTER.incrementAndGet() /*1*/, TipoEndereco.ofTipo(1),
+                "R. teste 3", 1003, "apartamento",
+                "90900-000", "Ivoti", "RS", "Brasil"));
+        listaEnderecos.add(new Endereco(1, COUNTER.incrementAndGet() /*1*/, TipoEndereco.ofTipo(2),
+                "R. teste 4", 1004, "casa",
+                "90900-000", "Ivoti", "RS", "Brasil"));
+        listaEnderecos.add(new Endereco(1, COUNTER.incrementAndGet() /*1*/, TipoEndereco.ofTipo(1),
+                "R. teste 5", 1005, "ap",
+                "90900-000", "Ivoti", "RS", "Brasil"));
+    }
     
     public Endereco create(Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
