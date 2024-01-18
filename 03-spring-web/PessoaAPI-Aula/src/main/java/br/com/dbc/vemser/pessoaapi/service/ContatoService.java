@@ -1,7 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class ContatoService {
     public Contato create(Contato contato){
         return contatoRepository.create(contato);
     }
-
 
     public List<Contato> list(){
         return contatoRepository.list();

@@ -20,6 +20,6 @@ public enum TipoEndereco {
         return Arrays.stream(TipoEndereco.values())
                 .filter(tp -> tp.getTipo().equals(tipo))
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 }

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Repository
 public class EnderecoRepository {
@@ -48,9 +46,4 @@ public class EnderecoRepository {
         listaEnderecos.remove(endereco);
     }
 
-    public List<Endereco> listByIdPessoa(Integer idPessoa) {
-        return listaEnderecos.stream()
-                .filter(endereco -> Objects.equals(endereco.getIdPessoa(), idPessoa))
-                .collect(Collectors.toList());
-    }
 }

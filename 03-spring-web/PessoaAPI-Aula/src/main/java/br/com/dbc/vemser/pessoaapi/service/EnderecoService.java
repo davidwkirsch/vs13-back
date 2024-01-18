@@ -56,11 +56,10 @@ public class EnderecoService {
 
     public Endereco getEnderecoById(Integer id) throws Exception {
 
-        Endereco enderecoRecuperado = enderecoRepository.list().stream()
+        return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Endereco não encontrado!"));
-        return enderecoRecuperado;
     }
 
 }
