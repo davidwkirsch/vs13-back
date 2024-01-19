@@ -10,6 +10,7 @@ public class Pessoa {
     @NotNull(message = "O id da pessoa não pode ser nulo")
     private Integer idPessoa = 0;
 
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "O nome deve conter apenas letras")
     @NotBlank(message = "O nome da pessoa não pode ser vazio nem nulo")
     private String nome;
 
