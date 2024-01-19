@@ -9,7 +9,7 @@ public class Endereco {
 
 
         @NotNull(message = "O id da pessoa não pode ser nulo")
-        private Integer idPessoa;
+        private Integer idPessoa = 0;
 
         @NotNull(message = "O id do endereço não pode ser nulo")
         private Integer idEndereco = 0;

@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.repository;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -42,9 +43,13 @@ public class ContatoRepository {
         listaContatos.remove(contato);
     }
 
-    public List<Contato> listByIdPessoa(Integer idPessoa) {
-        return listaContatos.stream()
+    public List<Contato> listByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
+        List<Contato> listaContato = listaContatos.stream()
                 .filter(contato -> Objects.equals(contato.getIdPessoa(), idPessoa))
                 .collect(Collectors.toList());
+        if (listaContato.isEmpty()) {
+            throw new RegraDeNegocioException("Nenhum resultado encontrado!");
+        }
+        return listaContato;
     }
 }

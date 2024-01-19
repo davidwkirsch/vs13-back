@@ -34,7 +34,7 @@ public class ContatoService {
     public Contato update(Integer id, Contato contatoAtualizar) throws Exception {
         Contato contatoRecuperado = getContato(id);
 
-        contatoRecuperado.setIdPessoa(contatoAtualizar.getIdPessoa());
+        contatoRecuperado.setIdPessoa(getContato(contatoAtualizar.getIdPessoa()).getIdContato());
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
         contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
@@ -45,7 +45,7 @@ public class ContatoService {
         Contato contatoRecuperado = getContato(id);
         contatoRepository.delete(contatoRecuperado);
     }
-    public List<Contato> listByIdPessoa(Integer idPessoa) {
+    public List<Contato> listByIdPessoa(Integer idPessoa) throws Exception {
         return contatoRepository.listByIdPessoa(idPessoa);
     }
     private Contato getContato(Integer id) throws Exception {

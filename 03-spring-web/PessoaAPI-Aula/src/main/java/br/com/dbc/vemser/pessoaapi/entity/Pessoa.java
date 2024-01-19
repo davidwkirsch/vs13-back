@@ -18,6 +18,7 @@ public class Pessoa {
     private LocalDate dataNascimento;
 
     @CPF(message = "O CPF deve ser válido")
+    @NotNull(message = "O CPF não pode ser nulo")
     private String cpf;
 
     public Pessoa() {

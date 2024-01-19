@@ -28,7 +28,7 @@ public class ContatoController {
     }
 
     @GetMapping("/{idContato}") // GET localhost:8081/contato/1
-    public List<Contato> listByName(@PathVariable("idContato") @Valid Integer idPessoa) {
+    public List<Contato> listByName(@PathVariable("idContato") @Valid Integer idPessoa) throws Exception {
         return contatoService.listByIdPessoa(idPessoa);
     }
 

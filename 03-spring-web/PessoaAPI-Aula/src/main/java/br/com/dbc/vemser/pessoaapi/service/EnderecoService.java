@@ -36,7 +36,7 @@ public class EnderecoService {
     public Endereco update(Endereco enderecoAtualizar) throws Exception {
         Endereco enderecoRecuperado = getEnderecoById(enderecoAtualizar.getIdEndereco());
 
-        enderecoRecuperado.setIdPessoa(enderecoAtualizar.getIdPessoa());
+        enderecoRecuperado.setIdPessoa(pessoaService.getPessoa(enderecoAtualizar.getIdPessoa()).getIdPessoa());
         enderecoRecuperado.setTipoEndereco(enderecoAtualizar.getTipoEndereco());
         enderecoRecuperado.setLogradouro(enderecoAtualizar.getLogradouro());
         enderecoRecuperado.setNumero(enderecoAtualizar.getNumero());
@@ -53,10 +53,14 @@ public class EnderecoService {
         enderecoRepository.delete(enderecoRecuperado);
     }
     public List<Endereco> getByIdPessoa(Integer idPessoa) throws Exception {
-        return enderecoRepository.list()
+        List<Endereco> listaEnderecos = enderecoRepository.list()
                 .stream()
                 .filter(endereco -> Objects.equals(endereco.getIdPessoa(), idPessoa))
                 .collect(Collectors.toList());
+        if (listaEnderecos.isEmpty()) {
+            throw new RegraDeNegocioException("Nenhum endereço cadastrado para esse ID de Pessoa!");
+        }
+        return listaEnderecos;
     }
     public Endereco getEnderecoById(Integer id) throws Exception {
 
