@@ -27,6 +27,7 @@ public class Endereco {
         @NotNull(message = "O complemento não pode ser nulo")
         private String complemento;
 
+        
         @NotBlank (message = "O CEP não pode ser em branco")
         @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos")
         private String cep;

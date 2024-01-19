@@ -1,8 +1,11 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PessoaRepository {
+
     private static final List<Pessoa> listaPessoas = new ArrayList<>();
     private final AtomicInteger COUNTER = new AtomicInteger();
 
@@ -30,7 +34,10 @@ public class PessoaRepository {
         return pessoa;
     }
 
-    public List<Pessoa> list() {
+    public List<Pessoa> list() throws RegraDeNegocioException {
+        if (listaPessoas.isEmpty()) {
+            throw new RegraDeNegocioException("Nenhuma pessoa cadastrada!");
+        }
         return listaPessoas;
     }
 
@@ -38,9 +45,13 @@ public class PessoaRepository {
         listaPessoas.remove(pessoa);
     }
 
-    public List<Pessoa> listByName(String nome) {
-        return listaPessoas.stream()
+    public List<Pessoa> listByName(String nome) throws RegraDeNegocioException {
+        List<Pessoa> pessoas = listaPessoas.stream()
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                 .collect(Collectors.toList());
+        if (pessoas.isEmpty()) {
+            throw new RegraDeNegocioException("Nenhum resultado encontrado!");
+        }
+        return pessoas;
     }
 }

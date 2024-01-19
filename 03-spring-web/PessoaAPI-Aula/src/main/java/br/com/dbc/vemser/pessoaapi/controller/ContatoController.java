@@ -3,6 +3,8 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,7 +44,8 @@ public class ContatoController {
         return contatoService.update(id, contatoAtualizar);
     }
     @DeleteMapping("/{idContato}") // DELETE localhost:8080/contato/10
-    public void delete(@PathVariable("idContato") @Valid Integer id) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable("idContato") @Valid Integer id) throws Exception {
         contatoService.delete(id);
+        return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
     }
 }

@@ -3,6 +3,8 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.*;
 
@@ -33,17 +35,18 @@ public class EnderecoController {
         return enderecoService.getByIdPessoa(idPessoa);
     }
     @PostMapping ("/{idPessoa}")// POST localhost:8080/endereco
-    public Endereco create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid Endereco endereco) throws Exception{
-        return enderecoService.create(idPessoa, endereco);
+    public ResponseEntity<Endereco> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid Endereco endereco) throws Exception{
+        return new ResponseEntity<>(enderecoService.create(idPessoa, endereco), HttpStatus.CREATED);
     }
     @PutMapping("/{idEndereco}") // PUT localhost:8080/endereco/1000
-    public Endereco update(@PathVariable("idEndereco") @Valid Integer id,
+    public ResponseEntity<Endereco> update(@PathVariable("idEndereco") @Valid Integer id,
                            @RequestBody @Valid Endereco enderecoAtualizar) throws Exception {
         enderecoAtualizar.setIdEndereco(id);
-        return enderecoService.update(enderecoAtualizar);
+        return new ResponseEntity<>(enderecoService.update(enderecoAtualizar), HttpStatus.CREATED);
     }
     @DeleteMapping("/{idEndereco}") // DELETE localhost:8080/endereco/10
-    public void delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception {
         enderecoService.delete(id);
+        return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
     }
 }

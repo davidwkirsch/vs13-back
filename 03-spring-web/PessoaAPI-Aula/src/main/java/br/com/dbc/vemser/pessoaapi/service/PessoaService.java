@@ -25,7 +25,7 @@ public class PessoaService {
         return pessoaRepository.create(pessoa);
     }
 
-    public List<Pessoa> list(){
+    public List<Pessoa> list() throws RegraDeNegocioException {
         return pessoaRepository.list();
     }
 
@@ -45,7 +45,7 @@ public class PessoaService {
         pessoaRepository.delete(pessoaRecuperada);
     }
 
-    public List<Pessoa> listByName(String nome) {
+    public List<Pessoa> listByName(String nome) throws Exception{
         return pessoaRepository.listByName(nome);
     }
 

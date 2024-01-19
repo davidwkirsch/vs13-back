@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -8,16 +10,14 @@ public class Pessoa {
     @NotNull(message = "O id da pessoa não pode ser nulo")
     private Integer idPessoa = 0;
 
-    @NotBlank(message = "O nome da pessoa não pode ser em branco")
-    @Size(max = 100, message = "O nome da pessoa não pode ter mais de 100 caracteres")
+    @NotBlank(message = "O nome da pessoa não pode ser vazio nem nulo")
     private String nome;
 
     @Past(message = "A data de nascimento deve ser uma data passada")
     @NotNull(message = "A data de nascimento não pode ser nula")
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "O CPF não pode ser em branco")
-    @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 dígitos")
+    @CPF(message = "O CPF deve ser válido")
     private String cpf;
 
     public Pessoa() {
