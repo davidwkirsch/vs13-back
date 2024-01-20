@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.entity;
+package br.com.dbc.vemser.pessoaapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Pessoa {
+public class ResponsePessoaDto {
+
     private Integer idPessoa;
     private String nome;
     private LocalDate dataNascimento;

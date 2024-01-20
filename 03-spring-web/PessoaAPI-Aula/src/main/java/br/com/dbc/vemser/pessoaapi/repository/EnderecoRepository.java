@@ -4,7 +4,6 @@ import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,6 +35,9 @@ public class EnderecoRepository {
     }
     
     public Endereco create(Endereco endereco) throws Exception{
+        if (endereco == null) {
+            throw new Exception("CreatePessoaDto não pode ser nula!");
+        }
         listaEnderecos.add(endereco);
         return endereco;
     }

@@ -1,20 +1,17 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 
+@Getter
+@AllArgsConstructor
 public enum TipoContato {
     RESIDENCIAL(1),
     COMERCIAL(2);
 
     private final Integer tipo;
-
-    TipoContato(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
 
     public static TipoContato ofTipo(Integer tipo){
         return Arrays.stream(TipoContato.values())

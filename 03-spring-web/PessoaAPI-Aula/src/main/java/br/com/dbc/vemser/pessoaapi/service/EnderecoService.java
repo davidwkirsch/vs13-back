@@ -1,17 +1,21 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
+import br.com.dbc.vemser.pessoaapi.dto.CreateEnderecoDto;
+import br.com.dbc.vemser.pessoaapi.dto.ResponseEnderecoDto;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.mapper.EnderecoMapper;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
@@ -22,22 +26,25 @@ public class EnderecoService {
         this.pessoaService = pessoaService;
     }
 
-    public Endereco create(Integer idPessoa, Endereco endereco) throws Exception{
+    public ResponseEnderecoDto create(Integer idPessoa, CreateEnderecoDto endereco) throws Exception{
         endereco.setIdEndereco(enderecoRepository.getNewIdEndereco());
         endereco.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
-        return enderecoRepository.create(endereco);
+        return EnderecoMapper.enderecoToEnderecoResponseDto(
+                enderecoRepository.create(
+                        EnderecoMapper.createEnderecoDtoToEndereco(endereco)));
     }
 
-    public List<Endereco> list(){
-        return enderecoRepository.list();
+    public List<ResponseEnderecoDto> list(){
+        return enderecoRepository.list().stream().map(EnderecoMapper::enderecoToEnderecoResponseDto)
+                .toList();
     }
 
 
-    public Endereco update(Endereco enderecoAtualizar) throws Exception {
+    public ResponseEnderecoDto update(CreateEnderecoDto enderecoAtualizar) throws Exception {
         Endereco enderecoRecuperado = getEnderecoById(enderecoAtualizar.getIdEndereco());
 
         enderecoRecuperado.setIdPessoa(pessoaService.getPessoa(enderecoAtualizar.getIdPessoa()).getIdPessoa());
-        enderecoRecuperado.setTipoEndereco(enderecoAtualizar.getTipoEndereco());
+        enderecoRecuperado.setTipo(enderecoAtualizar.getTipo());
         enderecoRecuperado.setLogradouro(enderecoAtualizar.getLogradouro());
         enderecoRecuperado.setNumero(enderecoAtualizar.getNumero());
         enderecoRecuperado.setComplemento(enderecoAtualizar.getComplemento());
@@ -46,21 +53,18 @@ public class EnderecoService {
         enderecoRecuperado.setEstado(enderecoAtualizar.getEstado());
         enderecoRecuperado.setPais(enderecoAtualizar.getPais());
 
-        return enderecoRecuperado;
+        return EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRecuperado);
     }
     public void delete(Integer id) throws Exception {
         Endereco enderecoRecuperado = getEnderecoById(id);
         enderecoRepository.delete(enderecoRecuperado);
     }
-    public List<Endereco> getByIdPessoa(Integer idPessoa) throws Exception {
-        List<Endereco> listaEnderecos = enderecoRepository.list()
+    public List<ResponseEnderecoDto> getByIdPessoa(Integer idPessoa) throws Exception {
+        return enderecoRepository.list()
                 .stream()
                 .filter(endereco -> Objects.equals(endereco.getIdPessoa(), idPessoa))
-                .collect(Collectors.toList());
-        if (listaEnderecos.isEmpty()) {
-            throw new RegraDeNegocioException("Nenhum endereço cadastrado para esse ID de Pessoa!");
-        }
-        return listaEnderecos;
+                .map(EnderecoMapper::enderecoToEnderecoResponseDto)
+                .toList();
     }
     public Endereco getEnderecoById(Integer id) throws Exception {
 

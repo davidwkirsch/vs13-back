@@ -1,16 +1,20 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
+import br.com.dbc.vemser.pessoaapi.dto.ResponseContatoDto;
+import br.com.dbc.vemser.pessoaapi.dto.ResponsePessoaDto;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.mapper.ContatoMapper;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
@@ -22,16 +26,19 @@ public class ContatoService {
         this.pessoaService = pessoaService;
     }
 
-    public Contato create(@Valid Contato contato) throws Exception {
+    public ResponseContatoDto create(@Valid CreateContatoDto contato) throws Exception {
         contato.setIdContato(contatoRepository.getNewIdContato());
         contato.setIdPessoa(pessoaService.getPessoa(contato.getIdPessoa()).getIdPessoa());
-        return contatoRepository.create(contato);
+        return ContatoMapper.contatoToContatoResponseDto(
+                contatoRepository.create(
+                        ContatoMapper.createContatoDtoToContato(contato)));
     }
 
-    public List<Contato> list(){
-        return contatoRepository.list();
+    public List<ResponseContatoDto> list(){
+        return contatoRepository.list().stream().map(ContatoMapper::contatoToContatoResponseDto)
+                .toList();
     }
-    public Contato update(Integer id, Contato contatoAtualizar) throws Exception {
+    public ResponseContatoDto update(Integer id, CreateContatoDto contatoAtualizar) throws Exception {
         Contato contatoRecuperado = getContato(id);
 
         contatoRecuperado.setIdPessoa(getContato(contatoAtualizar.getIdPessoa()).getIdContato());
@@ -39,14 +46,15 @@ public class ContatoService {
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
         contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
 
-        return contatoRecuperado;
+        return ContatoMapper.contatoToContatoResponseDto(contatoRecuperado);
     }
     public void delete(Integer id) throws Exception {
         Contato contatoRecuperado = getContato(id);
         contatoRepository.delete(contatoRecuperado);
     }
-    public List<Contato> listByIdPessoa(Integer idPessoa) throws Exception {
-        return contatoRepository.listByIdPessoa(idPessoa);
+    public List<ResponseContatoDto> listByIdPessoa(Integer idPessoa) throws Exception {
+        return contatoRepository.listByIdPessoa(idPessoa).stream().map(ContatoMapper::contatoToContatoResponseDto)
+                .toList();
     }
     private Contato getContato(Integer id) throws Exception {
 
@@ -56,7 +64,4 @@ public class ContatoService {
                 .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
     }
 
-    public Integer getNewIdContato() {
-        return contatoRepository.getNewIdContato();
-    }
 }
