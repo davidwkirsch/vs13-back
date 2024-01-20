@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.mapper;
 import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
 import br.com.dbc.vemser.pessoaapi.dto.ResponseContatoDto;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import org.springframework.web.bind.annotation.Mapping;
 
 public class ContatoMapper {
 

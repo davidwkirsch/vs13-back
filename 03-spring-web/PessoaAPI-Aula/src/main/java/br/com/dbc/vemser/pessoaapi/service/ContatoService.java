@@ -2,11 +2,11 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
 import br.com.dbc.vemser.pessoaapi.dto.ResponseContatoDto;
-import br.com.dbc.vemser.pessoaapi.dto.ResponsePessoaDto;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.mapper.ContatoMapper;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,13 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
 
     private final PessoaService pessoaService;
-
-    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService){
-        this.contatoRepository = contatoRepository;
-        this.pessoaService = pessoaService;
-    }
 
     public ResponseContatoDto create(@Valid CreateContatoDto contato) throws Exception {
         contato.setIdContato(contatoRepository.getNewIdContato());

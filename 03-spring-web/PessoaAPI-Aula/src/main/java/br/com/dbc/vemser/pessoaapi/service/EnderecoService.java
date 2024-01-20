@@ -1,30 +1,25 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
 import br.com.dbc.vemser.pessoaapi.dto.CreateEnderecoDto;
 import br.com.dbc.vemser.pessoaapi.dto.ResponseEnderecoDto;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.mapper.EnderecoMapper;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
     private final PessoaService pessoaService;
-
-    public EnderecoService(EnderecoRepository enderecoRepository, PessoaService pessoaService){
-        this.enderecoRepository = enderecoRepository;
-        this.pessoaService = pessoaService;
-    }
 
     public ResponseEnderecoDto create(Integer idPessoa, CreateEnderecoDto endereco) throws Exception{
         endereco.setIdEndereco(enderecoRepository.getNewIdEndereco());

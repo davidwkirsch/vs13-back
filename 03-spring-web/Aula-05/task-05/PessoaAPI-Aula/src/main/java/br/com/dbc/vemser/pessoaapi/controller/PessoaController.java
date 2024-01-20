@@ -4,6 +4,7 @@ import br.com.dbc.vemser.pessoaapi.dto.CreatePessoaDto;
 import br.com.dbc.vemser.pessoaapi.dto.ResponsePessoaDto;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +15,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Validated
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/pessoa") // localhost:8081/pessoa
 public class PessoaController {
 
     private final PessoaService pessoaService;
-
-
-    public PessoaController(PessoaService pessoaService) {
-        this.pessoaService = pessoaService;
-    }
 
     @GetMapping // GET localhost:8081/pessoa
     public ResponseEntity<List<ResponsePessoaDto>> list() throws RegraDeNegocioException {
@@ -68,42 +64,3 @@ public class PessoaController {
         return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
     }
 }
-//
-//@Validated
-//@Slf4j
-//@RestController
-//@RequestMapping("/pessoa") // localhost:8081/pessoa
-//public class PessoaController {
-//
-//    private final PessoaService pessoaService;
-//
-//    public PessoaController(PessoaService pessoaService) {
-//
-//        this.pessoaService = pessoaService;
-//    }
-//    @GetMapping // GET localhost:8081/pessoa
-//    public List<ResponsePessoaDto> list() throws RegraDeNegocioException {
-//        return pessoaService.list();
-//    }
-//    @GetMapping("/") // GET localhost:8081/pessoa/?nome=Rafa
-//    public List<ResponsePessoaDto> listByName(@RequestParam("nome") @NotEmpty @Valid String nome) throws Exception{
-//                return pessoaService.listByName(nome);
-//    }
-//
-//    @PostMapping // POST localhost:8081/pessoa
-//    public ResponseEntity<ResponsePessoaDto> create(@Valid @RequestBody CreatePessoaDto pessoa) throws Exception {
-//        log.info("Controller | Criando pessoa ");
-//        return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/{idPessoa}") // PUT localhost:8081/pessoa/1000
-//    public ResponseEntity<ResponsePessoaDto> update(@PathVariable("idPessoa") @Valid Integer id,
-//                                         @RequestBody @Valid CreatePessoaDto pessoaAtualizar) throws Exception {
-//        return new ResponseEntity<>(pessoaService.update(id, pessoaAtualizar), HttpStatus.CREATED);
-//    }
-//    @DeleteMapping("/{idPessoa}") // DELETE localhost:8081/pessoa/10
-//    public ResponseEntity<String> delete(@PathVariable("idPessoa") @Valid Integer id) throws Exception {
-//        pessoaService.delete(id);
-//        return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
-//    }
-//}

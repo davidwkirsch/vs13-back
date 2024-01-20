@@ -6,25 +6,20 @@ import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
-
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 @Slf4j
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final PropertieReader propertieReader;
-
-    public PessoaService(PessoaRepository pessoaRepository, PropertieReader propertieReader){
-        this.pessoaRepository = pessoaRepository;
-        this.propertieReader = propertieReader;
-    }
 
     public ResponsePessoaDto create(CreatePessoaDto pessoa) throws Exception {
         return PessoaMapper.pessoaToPessoaResponseDto(

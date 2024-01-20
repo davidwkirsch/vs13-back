@@ -4,6 +4,7 @@ import br.com.dbc.vemser.pessoaapi.dto.CreateEnderecoDto;
 import br.com.dbc.vemser.pessoaapi.dto.ResponseEnderecoDto;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +14,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/endereco") // localhost:8080/endereco
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
-
-    public EnderecoController(EnderecoService enderecoService) {
-        this.enderecoService = enderecoService;
-    }
 
     @GetMapping // GET localhost:8080/endereco
     public ResponseEntity<List<ResponseEnderecoDto>> list() {
@@ -77,48 +75,3 @@ public class EnderecoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-//
-//@Slf4j
-//@RestController
-//@RequestMapping("/endereco") // localhost:8080/endereco
-//public class EnderecoController {
-//
-//    private final EnderecoService enderecoService;
-//
-//    public EnderecoController(EnderecoService enderecoService) {
-//
-//        this.enderecoService = enderecoService;
-//    }
-//    @GetMapping // GET localhost:8080/endereco
-//    public List<ResponseEnderecoDto> list() {
-//        return enderecoService.list();
-//    }
-//    @GetMapping("/{idEndereco}") // GET localhost:8081/endereco/?pessoa=1
-//    public Endereco listByIdEndereco(@PathVariable("idEndereco") @Valid Integer idEndereco) throws Exception {
-//        return enderecoService.getEnderecoById(idEndereco);
-//    }
-//    @GetMapping("/{idPessoa}/pessoa") // GET localhost:8081/endereco/?pessoa=1
-//    public ResponseEntity<List<ResponseEnderecoDto>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception {
-//        List<ResponseEnderecoDto> enderecoList = enderecoService.getByIdPessoa(idPessoa);
-//        if (enderecoList.isEmpty()) {
-//            return new ResponseEntity<>(enderecoList, HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(enderecoList, HttpStatus.OK);
-//        }
-//    }
-//    @PostMapping ("/{idPessoa}")// POST localhost:8080/endereco
-//    public ResponseEntity<ResponseEnderecoDto> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid CreateEnderecoDto endereco) throws Exception{
-//        return new ResponseEntity<>(enderecoService.create(idPessoa, endereco), HttpStatus.CREATED);
-//    }
-//    @PutMapping("/{idEndereco}") // PUT localhost:8080/endereco/1000
-//    public ResponseEntity<ResponseEnderecoDto> update(@PathVariable("idEndereco") @Valid Integer id,
-//                           @RequestBody @Valid CreateEnderecoDto enderecoAtualizar) throws Exception {
-//        enderecoAtualizar.setIdEndereco(id);
-//        return new ResponseEntity<>(enderecoService.update(enderecoAtualizar), HttpStatus.CREATED);
-//    }
-//    @DeleteMapping("/{idEndereco}") // DELETE localhost:8080/endereco/10
-//    public ResponseEntity<String> delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception {
-//        enderecoService.delete(id);
-//        return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
-//    }
-//}
