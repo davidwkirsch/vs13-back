@@ -50,7 +50,8 @@ public class PessoaController {
     public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") @Valid Integer id,
                                             @RequestBody @Valid PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Atualizando pessoa com id {}", id);
-        PessoaDTO updatedPessoa = pessoaService.update(id, pessoaAtualizar);
+        pessoaAtualizar.setIdPessoa(id);
+        PessoaDTO updatedPessoa = pessoaService.update(pessoaAtualizar);
         log.info("Atualizou pessoa com id {}", id);
         return new ResponseEntity<>(updatedPessoa, HttpStatus.OK);
     }

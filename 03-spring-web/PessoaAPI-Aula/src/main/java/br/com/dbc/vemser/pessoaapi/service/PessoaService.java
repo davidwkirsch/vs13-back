@@ -33,10 +33,10 @@ public class PessoaService {
                 .toList();
     }
 
-    public PessoaDTO update(Integer id,
+    public PessoaDTO update(
                             PessoaCreateDTO pessoaAtualizar) throws Exception {
 
-        Pessoa pessoaRecuperada = getPessoa(id);
+        Pessoa pessoaRecuperada = getPessoa(pessoaAtualizar.getIdPessoa());
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
@@ -48,8 +48,7 @@ public class PessoaService {
 
     public void delete(Integer id) throws Exception {
         if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
-        Pessoa pessoaRecuperada = getPessoa(id);
-        pessoaRepository.delete(pessoaRecuperada);
+        pessoaRepository.delete(getPessoa(id));
     }
 
     public List<PessoaDTO> listByName(String nome) throws Exception{
