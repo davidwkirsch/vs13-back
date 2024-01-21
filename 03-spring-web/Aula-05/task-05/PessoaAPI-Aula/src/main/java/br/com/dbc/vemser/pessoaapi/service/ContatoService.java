@@ -1,10 +1,10 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
-import br.com.dbc.vemser.pessoaapi.dto.ResponseContatoDto;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
-import br.com.dbc.vemser.pessoaapi.mapper.ContatoMapper;
+import br.com.dbc.vemser.pessoaapi.dto.mapper.ContatoMapper;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class ContatoService {
 
     private final PessoaService pessoaService;
 
-    public ResponseContatoDto create(@Valid CreateContatoDto contato) throws Exception {
+    public ContatoDTO create(@Valid ContatoCreateDTO contato) throws Exception {
         contato.setIdContato(contatoRepository.getNewIdContato());
         contato.setIdPessoa(pessoaService.getPessoa(contato.getIdPessoa()).getIdPessoa());
         return ContatoMapper.contatoToContatoResponseDto(
@@ -30,11 +30,11 @@ public class ContatoService {
                         ContatoMapper.createContatoDtoToContato(contato)));
     }
 
-    public List<ResponseContatoDto> list(){
+    public List<ContatoDTO> list(){
         return contatoRepository.list().stream().map(ContatoMapper::contatoToContatoResponseDto)
                 .toList();
     }
-    public ResponseContatoDto update(Integer id, CreateContatoDto contatoAtualizar) throws Exception {
+    public ContatoDTO update(Integer id, ContatoCreateDTO contatoAtualizar) throws Exception {
         Contato contatoRecuperado = getContato(id);
 
         contatoRecuperado.setIdPessoa(getContato(contatoAtualizar.getIdPessoa()).getIdContato());
@@ -48,7 +48,7 @@ public class ContatoService {
         Contato contatoRecuperado = getContato(id);
         contatoRepository.delete(contatoRecuperado);
     }
-    public List<ResponseContatoDto> listByIdPessoa(Integer idPessoa) throws Exception {
+    public List<ContatoDTO> listByIdPessoa(Integer idPessoa) throws Exception {
         return contatoRepository.listByIdPessoa(idPessoa).stream().map(ContatoMapper::contatoToContatoResponseDto)
                 .toList();
     }

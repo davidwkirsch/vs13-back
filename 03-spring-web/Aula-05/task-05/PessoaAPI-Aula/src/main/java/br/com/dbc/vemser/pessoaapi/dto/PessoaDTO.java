@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ResponsePessoaDto {
+public class PessoaDTO {
 
     private Integer idPessoa;
     private String nome;

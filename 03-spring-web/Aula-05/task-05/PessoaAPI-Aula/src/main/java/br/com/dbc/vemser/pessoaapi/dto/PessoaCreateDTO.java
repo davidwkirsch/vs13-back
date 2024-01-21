@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CreatePessoaDto {
+public class PessoaCreateDTO {
 
     @NotNull(message = "O id da pessoa não pode ser nulo")
     private Integer idPessoa = 0;

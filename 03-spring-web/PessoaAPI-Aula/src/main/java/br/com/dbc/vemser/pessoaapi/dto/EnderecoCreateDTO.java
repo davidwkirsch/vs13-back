@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CreateEnderecoDto {
+public class EnderecoCreateDTO {
 
         @NotNull(message = "O id da pessoa não pode ser nulo")
         private Integer idPessoa = 0;

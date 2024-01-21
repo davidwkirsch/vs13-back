@@ -1,7 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.dto.CreateEnderecoDto;
-import br.com.dbc.vemser.pessoaapi.dto.ResponseEnderecoDto;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class EnderecoController {
     private final EnderecoService enderecoService;
 
     @GetMapping // GET localhost:8080/endereco
-    public ResponseEntity<List<ResponseEnderecoDto>> list() {
+    public ResponseEntity<List<EnderecoDTO>> list() {
         log.info("Buscando todos os endereços");
-        List<ResponseEnderecoDto> enderecoList = enderecoService.list();
+        List<EnderecoDTO> enderecoList = enderecoService.list();
         log.info("Buscou todos os endereços");
         return new ResponseEntity<>(enderecoList, HttpStatus.OK);
     }
@@ -38,9 +38,9 @@ public class EnderecoController {
     }
 
     @GetMapping("/{idPessoa}/pessoa") // GET localhost:8081/endereco/?pessoa=1
-    public ResponseEntity<List<ResponseEnderecoDto>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception {
+    public ResponseEntity<List<EnderecoDTO>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception {
         log.info("Buscando endereços para pessoa com id {}", idPessoa);
-        List<ResponseEnderecoDto> enderecoList = enderecoService.getByIdPessoa(idPessoa);
+        List<EnderecoDTO> enderecoList = enderecoService.getByIdPessoa(idPessoa);
         log.info("Buscou endereços para pessoa com id {}", idPessoa);
         if (enderecoList.isEmpty()) {
             return new ResponseEntity<>(enderecoList, HttpStatus.NO_CONTENT);
@@ -50,19 +50,19 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idPessoa}")// POST localhost:8080/endereco
-    public ResponseEntity<ResponseEnderecoDto> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid CreateEnderecoDto endereco) throws Exception {
+    public ResponseEntity<EnderecoDTO> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid EnderecoCreateDTO endereco) throws Exception {
         log.info("Criando endereço para pessoa com id {}", idPessoa);
-        ResponseEnderecoDto createdEndereco = enderecoService.create(idPessoa, endereco);
+        EnderecoDTO createdEndereco = enderecoService.create(idPessoa, endereco);
         log.info("Criou endereço para pessoa com id {}", idPessoa);
         return new ResponseEntity<>(createdEndereco, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idEndereco}") // PUT localhost:8080/endereco/1000
-    public ResponseEntity<ResponseEnderecoDto> update(@PathVariable("idEndereco") @Valid Integer id,
-                           @RequestBody @Valid CreateEnderecoDto enderecoAtualizar) throws Exception {
+    public ResponseEntity<EnderecoDTO> update(@PathVariable("idEndereco") @Valid Integer id,
+                                              @RequestBody @Valid EnderecoCreateDTO enderecoAtualizar) throws Exception {
         log.info("Atualizando endereço com id {}", id);
         enderecoAtualizar.setIdEndereco(id);
-        ResponseEnderecoDto updatedEndereco = enderecoService.update(enderecoAtualizar);
+        EnderecoDTO updatedEndereco = enderecoService.update(enderecoAtualizar);
         log.info("Atualizou endereço com id {}", id);
         return new ResponseEntity<>(updatedEndereco, HttpStatus.OK);
     }

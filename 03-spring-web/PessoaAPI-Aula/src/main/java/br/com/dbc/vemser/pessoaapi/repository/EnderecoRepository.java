@@ -36,7 +36,7 @@ public class EnderecoRepository {
     
     public Endereco create(Endereco endereco) throws Exception{
         if (endereco == null) {
-            throw new Exception("CreatePessoaDto não pode ser nula!");
+            throw new Exception("PessoaCreateDTO não pode ser nula!");
         }
         listaEnderecos.add(endereco);
         return endereco;

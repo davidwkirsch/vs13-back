@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CreateContatoDto {
+public class ContatoCreateDTO {
 
     @NotNull(message = "O id do contato não pode ser nulo")
     private Integer idContato = 0;

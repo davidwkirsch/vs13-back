@@ -28,7 +28,7 @@ public class PessoaRepository {
         listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*5*/, "Ana", LocalDate.parse("01/07/1990", formatter), "12345678917"));
     }
 
-    public Pessoa create(Pessoa pessoa) {
+    public Pessoa create(Pessoa pessoa) throws Exception{
         pessoa.setIdPessoa(COUNTER.incrementAndGet());
         listaPessoas.add(pessoa);
         return pessoa;

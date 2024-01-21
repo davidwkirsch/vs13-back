@@ -1,7 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.dto.CreateContatoDto;
-import br.com.dbc.vemser.pessoaapi.dto.ResponseContatoDto;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,35 +21,35 @@ public class ContatoController {
     private final ContatoService contatoService;
 
     @GetMapping // GET localhost:8080/contato
-    public ResponseEntity<List<ResponseContatoDto>> list() {
+    public ResponseEntity<List<ContatoDTO>> list() {
         log.info("Buscando todos os contatos");
-        List<ResponseContatoDto> contatoList = contatoService.list();
+        List<ContatoDTO> contatoList = contatoService.list();
         log.info("Buscou todos os contatos");
         return new ResponseEntity<>(contatoList, HttpStatus.OK);
     }
 
     @GetMapping("/{idContato}") // GET localhost:8081/contato/1
-    public ResponseEntity<List<ResponseContatoDto>> listByName(@PathVariable("idContato") @Valid Integer idPessoa) throws Exception {
+    public ResponseEntity<List<ContatoDTO>> listByName(@PathVariable("idContato") @Valid Integer idPessoa) throws Exception {
         log.info("Buscando contatos pelo id {}", idPessoa);
-        List<ResponseContatoDto> contatoList = contatoService.listByIdPessoa(idPessoa);
+        List<ContatoDTO> contatoList = contatoService.listByIdPessoa(idPessoa);
         log.info("Buscou contatos pelo id {}", idPessoa);
         return new ResponseEntity<>(contatoList, HttpStatus.OK);
     }
 
     @PostMapping // POST localhost:8080/contato
-    public ResponseEntity<ResponseContatoDto> create(@RequestBody @Valid CreateContatoDto contato) throws Exception {
+    public ResponseEntity<ContatoDTO> create(@RequestBody @Valid ContatoCreateDTO contato) throws Exception {
         log.info("Criando contato");
         contato.setNumero(contato.getNumero().replaceAll("[^0-9]", ""));
-        ResponseContatoDto createdContato = contatoService.create(contato);
+        ContatoDTO createdContato = contatoService.create(contato);
         log.info("Criou contato");
         return new ResponseEntity<>(createdContato, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idContato}") // PUT localhost:8080/contato/1000
-    public ResponseEntity<ResponseContatoDto> update(@PathVariable("idContato") @Valid Integer id,
-                                         @RequestBody @Valid CreateContatoDto contatoAtualizar) throws Exception {
+    public ResponseEntity<ContatoDTO> update(@PathVariable("idContato") @Valid Integer id,
+                                             @RequestBody @Valid ContatoCreateDTO contatoAtualizar) throws Exception {
         log.info("Atualizando contato com id {}", id);
-        ResponseContatoDto updatedContato = contatoService.update(id, contatoAtualizar);
+        ContatoDTO updatedContato = contatoService.update(id, contatoAtualizar);
         log.info("Atualizou contato com id {}", id);
         return new ResponseEntity<>(updatedContato, HttpStatus.OK);
     }
