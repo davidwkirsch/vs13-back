@@ -1,12 +1,12 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
-import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,14 @@ public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final PropertieReader propertieReader;
+    private final EmailService emailService;
 
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
-        return PessoaMapper.pessoaToPessoaResponseDto(
-                pessoaRepository.create(
-                        PessoaMapper.createPessoaDtoToPessoa(pessoa)));
+        Pessoa createdPessoa = pessoaRepository.create(PessoaMapper.createPessoaDtoToPessoa(pessoa));
+        PessoaDTO pessoaDTO = PessoaMapper.pessoaToPessoaResponseDto(createdPessoa);
+        emailService.sendEmail(pessoaDTO, "Seja bem vindo!", EmailTemplates.BEM_VINDO);
+        log.info("E-mail enviado!");
+        return pessoaDTO;
     }
 
     public List<PessoaDTO> list() throws RegraDeNegocioException {
@@ -33,24 +36,24 @@ public class PessoaService {
                 .toList();
     }
 
-    public PessoaDTO update(
-                            PessoaCreateDTO pessoaAtualizar) throws Exception {
+    public PessoaDTO update(PessoaCreateDTO pessoaAtualizar) throws Exception {
 
         Pessoa pessoaRecuperada = getPessoa(pessoaAtualizar.getIdPessoa());
-
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
-
-
-        return PessoaMapper.pessoaToPessoaResponseDto(pessoaRecuperada);
+        PessoaDTO updatedPessoa = PessoaMapper.pessoaToPessoaResponseDto(pessoaRecuperada);
+        emailService.sendEmail(updatedPessoa, "Seus dados foram alterados!", EmailTemplates.EDITAR_CONTA);
+        log.info("E-mail enviado!");
+        return updatedPessoa;
     }
 
-    public PessoaDTO delete(Integer id) throws Exception {
+    public void delete(Integer id) throws Exception {
         if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
         PessoaDTO pessoaDeletada = PessoaMapper.pessoaToPessoaResponseDto(getPessoa(id));
         pessoaRepository.delete(getPessoa(id));
-        return pessoaDeletada;
+        emailService.sendEmail(pessoaDeletada, "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
+        log.info("E-mail enviado!");
     }
 
     public List<PessoaDTO> listByName(String nome) throws Exception{

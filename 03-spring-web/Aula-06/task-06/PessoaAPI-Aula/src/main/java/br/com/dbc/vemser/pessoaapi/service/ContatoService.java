@@ -19,7 +19,6 @@ import java.util.List;
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
-
     private final PessoaService pessoaService;
 
     public ContatoDTO create(@Valid ContatoCreateDTO contato) throws Exception {

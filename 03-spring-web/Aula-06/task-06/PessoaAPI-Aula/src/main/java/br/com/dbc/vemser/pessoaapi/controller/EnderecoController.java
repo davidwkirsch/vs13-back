@@ -3,10 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
-import br.com.dbc.vemser.pessoaapi.service.EmailService;
-import br.com.dbc.vemser.pessoaapi.service.EmailTemplates;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
-import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,8 +20,6 @@ import java.util.List;
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
-    private final EmailService emailService;
-    private final PessoaService pessoaService;
 
     @GetMapping // GET localhost:8080/endereco
     public ResponseEntity<List<EnderecoDTO>> list() {
@@ -59,8 +54,6 @@ public class EnderecoController {
         log.info("Criando endereço para pessoa com id {}", idPessoa);
         EnderecoDTO createdEndereco = enderecoService.create(idPessoa, endereco);
         log.info("Criou endereço para pessoa com id {}", idPessoa);
-        emailService.sendEmail(pessoaService.getPessoaDTO(idPessoa), "Endereço criado!", EmailTemplates.ENDERECO_CRIADO);
-        log.info("E-mail enviado!");
         return new ResponseEntity<>(createdEndereco, HttpStatus.CREATED);
     }
 
@@ -71,18 +64,14 @@ public class EnderecoController {
         enderecoAtualizar.setIdEndereco(id);
         EnderecoDTO updatedEndereco = enderecoService.update(enderecoAtualizar);
         log.info("Atualizou endereço com id {}", id);
-        emailService.sendEmail(pessoaService.getPessoaDTO(updatedEndereco.getIdPessoa()), "Endereço alterado!", EmailTemplates.ENDERECO_EDITADO);
-        log.info("E-mail enviado!");
         return new ResponseEntity<>(updatedEndereco, HttpStatus.OK);
     }
 
     @DeleteMapping("/{idEndereco}") // DELETE localhost:8080/endereco/10
     public ResponseEntity<String> delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception {
         log.info("Deletando endereço com id {}", id);
-        EnderecoDTO enderecoRecuperado = enderecoService.delete(id);
+        enderecoService.delete(id);
         log.info("Deletou endereço com id {}", id);
-        emailService.sendEmail(pessoaService.getPessoaDTO(enderecoRecuperado.getIdPessoa()), "Endereço deletado!", EmailTemplates.ENDERECO_DELETADO);
-        log.info("E-mail enviado!");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

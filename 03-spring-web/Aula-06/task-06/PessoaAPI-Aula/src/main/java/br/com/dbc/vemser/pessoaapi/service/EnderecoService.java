@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.EnderecoMapper;
@@ -20,20 +21,23 @@ public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
     private final PessoaService pessoaService;
+    private final PropertieReader propertieReader;
+    private final EmailService emailService;
 
     public EnderecoDTO create(Integer idPessoa, EnderecoCreateDTO endereco) throws Exception{
         endereco.setIdEndereco(enderecoRepository.getNewIdEndereco());
         endereco.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
-        return EnderecoMapper.enderecoToEnderecoResponseDto(
-                enderecoRepository.create(
-                        EnderecoMapper.createEnderecoDtoToEndereco(endereco)));
+        EnderecoDTO createdEndereco = EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRepository.create(
+                EnderecoMapper.createEnderecoDtoToEndereco(endereco)));
+        emailService.sendEmail(pessoaService.getPessoaDTO(idPessoa), "Endereço criado!", EmailTemplates.ENDERECO_CRIADO);
+        log.info("E-mail enviado!");
+        return createdEndereco;
     }
 
     public List<EnderecoDTO> list(){
         return enderecoRepository.list().stream().map(EnderecoMapper::enderecoToEnderecoResponseDto)
                 .toList();
     }
-
 
     public EnderecoDTO update(EnderecoCreateDTO enderecoAtualizar) throws Exception {
         Endereco enderecoRecuperado = getEnderecoById(enderecoAtualizar.getIdEndereco());
@@ -48,13 +52,20 @@ public class EnderecoService {
         enderecoRecuperado.setEstado(enderecoAtualizar.getEstado());
         enderecoRecuperado.setPais(enderecoAtualizar.getPais());
 
+        emailService.sendEmail(pessoaService.getPessoaDTO(enderecoRecuperado.getIdPessoa()), "Endereço alterado!", EmailTemplates.ENDERECO_EDITADO);
+        log.info("E-mail enviado!");
         return EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRecuperado);
     }
-    public EnderecoDTO delete(Integer id) throws Exception {
+
+    public void delete(Integer id) throws Exception {
+        if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
         EnderecoDTO enderecoRecuperado = EnderecoMapper.enderecoToEnderecoResponseDto(getEnderecoById(id));
         enderecoRepository.delete(getEnderecoById(id));
-        return enderecoRecuperado;
+        emailService.sendEmail(pessoaService.getPessoaDTO(enderecoRecuperado.getIdPessoa()), "Endereço deletado!", EmailTemplates.ENDERECO_DELETADO);
+        log.info("E-mail enviado!");
     }
+
+
     public List<EnderecoDTO> getByIdPessoa(Integer idPessoa) throws Exception {
         return enderecoRepository.list()
                 .stream()
