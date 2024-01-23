@@ -64,21 +64,24 @@ public class EmailService {
     }
 
     public void sendEmail(PessoaDTO pessoa, String assunto, EmailTemplates template) throws Exception {
-        MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
-
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-
-            mimeMessageHelper.setFrom(propertieReader.getUsernameEmail());
-            mimeMessageHelper.setTo(pessoa.getEmail());
-            mimeMessageHelper.setSubject(assunto);
-            mimeMessageHelper.setText(getContentFromTemplate(pessoa, template), true);
-
-            emailSender.send(mimeMessageHelper.getMimeMessage());
+            MimeMessage mimeMessage = createMimeMessage(pessoa, assunto, template);
+            emailSender.send(mimeMessage);
         } catch (MessagingException | IOException | TemplateException e) {
-            e.printStackTrace();
-            throw new Exception(e.getMessage());
+            throw new Exception("Failed to send email", e);
         }
+    }
+
+    private MimeMessage createMimeMessage(PessoaDTO pessoa, String assunto, EmailTemplates template) throws MessagingException, IOException, TemplateException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        mimeMessageHelper.setFrom(propertieReader.getUsernameEmail());
+        mimeMessageHelper.setTo(pessoa.getEmail());
+        mimeMessageHelper.setSubject(assunto);
+        mimeMessageHelper.setText(getContentFromTemplate(pessoa, template), true);
+
+        return mimeMessageHelper.getMimeMessage();
     }
 
     public String getContentFromTemplate(PessoaDTO pessoaDTO, EmailTemplates template) throws IOException, TemplateException {
