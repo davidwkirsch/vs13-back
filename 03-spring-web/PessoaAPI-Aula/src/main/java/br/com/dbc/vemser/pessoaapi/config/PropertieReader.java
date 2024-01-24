@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.utils;
+package br.com.dbc.vemser.pessoaapi.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
