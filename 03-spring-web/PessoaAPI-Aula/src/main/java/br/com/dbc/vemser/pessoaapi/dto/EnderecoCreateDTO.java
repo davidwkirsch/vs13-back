@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Schema(description = "Objeto de criação de Contato")
 public class EnderecoCreateDTO {
 
         @Schema(description = "Id da Pessoa", hidden = true, example = "1")

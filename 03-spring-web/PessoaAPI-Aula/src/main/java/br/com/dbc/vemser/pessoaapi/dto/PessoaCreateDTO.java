@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Schema(description = "Objeto de criação de Contato")
 public class PessoaCreateDTO {
 
     @Schema(description = "Id da Pessoa", hidden = true, example = "1")

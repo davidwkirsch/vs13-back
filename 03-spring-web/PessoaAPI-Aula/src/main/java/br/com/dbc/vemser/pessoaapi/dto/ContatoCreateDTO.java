@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Schema(description = "Objeto de criação de Contato")
 public class ContatoCreateDTO {
 
     @Schema(description = "Id do Contato", hidden = true, example = "1")
