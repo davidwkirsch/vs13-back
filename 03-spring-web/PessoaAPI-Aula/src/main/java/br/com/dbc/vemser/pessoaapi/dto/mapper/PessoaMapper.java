@@ -34,4 +34,14 @@ public class PessoaMapper {
         pessoaNova.setEmail(pessoa.getEmail());
         return pessoaNova;
     }
+
+    public static PessoaCreateDTO pessoaDadosPessoaisToPessoaCreateDto(PessoaDadosPessoaisDTO pessoa) {
+        PessoaCreateDTO pessoaNova = new PessoaCreateDTO();
+        pessoaNova.setNome(pessoa.getNome());
+        pessoaNova.setDataNascimento(pessoa.getDataNascimento());
+        pessoaNova.setCpf(pessoa.getCpf());
+        pessoaNova.setEmail(pessoa.getEmail());
+        return pessoaNova;
+    }
+
 }

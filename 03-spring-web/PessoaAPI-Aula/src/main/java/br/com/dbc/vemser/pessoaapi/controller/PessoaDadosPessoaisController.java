@@ -1,7 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaDadosPessoaisService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,11 +31,21 @@ public class PessoaDadosPessoaisController {
     }
 
     @GetMapping("/{cpf}") // GET localhost:8081/pessoa-dados-pessoais/1000
-    public ResponseEntity<List<PessoaDadosPessoaisDTO>> listByCpf(@PathVariable("cpf") Integer cpf) throws Exception {
+    public ResponseEntity<?> listByCpf(@PathVariable("cpf") String cpf) throws Exception {
         log.info("Buscando pessoa com cpf {}", cpf);
         List<PessoaDadosPessoaisDTO> pessoaList = pessoaDadosPessoaisService.listByCpf(cpf);
         log.info("Buscou pessoa com cpf {}", cpf);
         return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+    }
+
+    @PutMapping("/{cpf}") // PUT localhost:8081/pessoa-dados-pessoais/1000
+    public ResponseEntity<PessoaDadosPessoaisDTO> update(@PathVariable("cpf") String cpf,
+                                                          @RequestBody @Valid PessoaDadosPessoaisDTO pessoaAtualizar) throws Exception {
+        log.info("Atualizando pessoa com cpf {}", cpf);
+        pessoaAtualizar.setCpf(cpf);
+        PessoaDadosPessoaisDTO updatedPessoa = pessoaDadosPessoaisService.update(pessoaAtualizar);
+        log.info("Atualizou pessoa com cpf {}", cpf);
+        return new ResponseEntity<>(updatedPessoa, HttpStatus.OK);
     }
 
     @PostMapping // POST localhost:8081/pessoa-dados-pessoais
@@ -49,7 +57,7 @@ public class PessoaDadosPessoaisController {
     }
 
     @DeleteMapping("/{cpf}") // DELETE localhost:8081/pessoa-dados-pessoais/1000
-    public ResponseEntity<String> delete(@PathVariable("cpf") Integer cpf) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable("cpf") String cpf) throws Exception {
         log.info("Deletando pessoa com cpf {}", cpf);
         pessoaDadosPessoaisService.delete(cpf);
         log.info("Deletou pessoa com cpf {}", cpf);

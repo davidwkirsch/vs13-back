@@ -65,6 +65,14 @@ public class PessoaService {
         log.info("E-mail enviado!");
     }
 
+    public void delete(String cpf) throws Exception {
+        if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
+        PessoaDTO pessoaDeletada = getPessoaByCpf(cpf);
+        delete(pessoaDeletada.getIdPessoa());
+        emailService.sendEmail(pessoaDeletada, "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
+        log.info("E-mail enviado!");
+    }
+
     public List<PessoaDTO> listByName(String nome) throws Exception{
         return pessoaRepository.listByName(nome).stream().map(PessoaMapper::pessoaToPessoaResponseDto)
                 .toList();
@@ -77,7 +85,7 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
     }
 
-    public PessoaDTO getPessoaByCpf(Integer cpf) throws Exception {
+    public PessoaDTO getPessoaByCpf(String cpf) throws Exception {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getCpf().equals(cpf))
                 .map(PessoaMapper::pessoaToPessoaResponseDto)

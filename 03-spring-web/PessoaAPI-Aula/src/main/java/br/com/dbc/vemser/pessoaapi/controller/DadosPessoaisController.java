@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.client.DadosPessoaisClient;
 import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.service.DadosPessoaisService;
 import io.swagger.v3.oas.annotations.tags.Tag;
