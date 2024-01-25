@@ -47,7 +47,7 @@ public class PessoaService {
 
     public PessoaDTO update(PessoaCreateDTO pessoaAtualizar) throws Exception {
 
-        Pessoa pessoaRecuperada = getPessoa(pessoaAtualizar.getIdPessoa());
+        Pessoa pessoaRecuperada = getPessoa(pessoaAtualizar.getCpf());
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
@@ -81,6 +81,13 @@ public class PessoaService {
     public Pessoa getPessoa(Integer id) throws Exception {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
+    }
+
+    public Pessoa getPessoa(String cpf) throws Exception {
+        return pessoaRepository.list().stream()
+                .filter(pessoa -> pessoa.getCpf().equals(cpf))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
     }
