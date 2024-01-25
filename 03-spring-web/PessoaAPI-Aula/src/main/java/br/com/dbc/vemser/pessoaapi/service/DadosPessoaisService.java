@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.client.DadosPessoaisClient;
 import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,20 @@ public class DadosPessoaisService {
 
     public DadosPessoaisDTO post(DadosPessoaisDTO dadosPessoaisDTO) {
         return dadosPessoaisClient.post(dadosPessoaisDTO);
+    }
+
+    public DadosPessoaisDTO post(PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) {
+        DadosPessoaisDTO dadosPessoaisDTO = new DadosPessoaisDTO();
+        dadosPessoaisDTO.setCpf(pessoaDadosPessoaisDTO.getCpf());
+        dadosPessoaisDTO.setRg(pessoaDadosPessoaisDTO.getRg());
+        dadosPessoaisDTO.setCnh(pessoaDadosPessoaisDTO.getCnh());
+        dadosPessoaisDTO.setNomeMae(pessoaDadosPessoaisDTO.getNomeMae());
+        dadosPessoaisDTO.setNomePai(pessoaDadosPessoaisDTO.getNomePai());
+        dadosPessoaisDTO.setTituloEleitor(pessoaDadosPessoaisDTO.getTituloEleitor());
+        dadosPessoaisDTO.setSexo(pessoaDadosPessoaisDTO.getSexo());
+        dadosPessoaisDTO.setNome(pessoaDadosPessoaisDTO.getNome());
+        post(dadosPessoaisDTO);
+        return dadosPessoaisDTO;
     }
 
     public DadosPessoaisDTO put(String cpf, DadosPessoaisDTO dadosPessoaisDTO) {

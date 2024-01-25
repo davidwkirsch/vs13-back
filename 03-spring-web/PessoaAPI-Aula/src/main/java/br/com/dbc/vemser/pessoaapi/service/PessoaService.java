@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
@@ -24,6 +25,14 @@ public class PessoaService {
 
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
         Pessoa createdPessoa = pessoaRepository.create(PessoaMapper.createPessoaDtoToPessoa(pessoa));
+        PessoaDTO pessoaDTO = PessoaMapper.pessoaToPessoaResponseDto(createdPessoa);
+        emailService.sendEmail(pessoaDTO, "Seja bem vindo!", EmailTemplates.BEM_VINDO);
+        log.info("E-mail enviado!");
+        return pessoaDTO;
+    }
+
+    public PessoaDTO create(PessoaDadosPessoaisDTO pessoa) throws Exception {
+        Pessoa createdPessoa = pessoaRepository.create(PessoaMapper.pessoaDadosPessoaisToPessoaDto(pessoa));
         PessoaDTO pessoaDTO = PessoaMapper.pessoaToPessoaResponseDto(createdPessoa);
         emailService.sendEmail(pessoaDTO, "Seja bem vindo!", EmailTemplates.BEM_VINDO);
         log.info("E-mail enviado!");
@@ -68,6 +77,13 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
     }
 
+    public PessoaDTO getPessoaByCpf(Integer cpf) throws Exception {
+        return pessoaRepository.list().stream()
+                .filter(pessoa -> pessoa.getCpf().equals(cpf))
+                .map(PessoaMapper::pessoaToPessoaResponseDto)
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
+    }
     public PessoaDTO getPessoaDTO(Integer id) throws Exception {
         return PessoaMapper.pessoaToPessoaResponseDto(getPessoa(id));
     }

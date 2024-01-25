@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.dto.mapper;
 
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 
 public class PessoaMapper {
@@ -23,5 +24,14 @@ public class PessoaMapper {
         pessoaDto.setCpf(pessoa.getCpf());
         pessoaDto.setEmail(pessoa.getEmail());
         return pessoaDto;
+    }
+
+    public static Pessoa pessoaDadosPessoaisToPessoaDto(PessoaDadosPessoaisDTO pessoa) {
+        Pessoa pessoaNova = new Pessoa();
+        pessoaNova.setNome(pessoa.getNome());
+        pessoaNova.setDataNascimento(pessoa.getDataNascimento());
+        pessoaNova.setCpf(pessoa.getCpf());
+        pessoaNova.setEmail(pessoa.getEmail());
+        return pessoaNova;
     }
 }
