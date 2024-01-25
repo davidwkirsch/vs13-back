@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.controller.documentacao;
+package br.com.dbc.vemser.pessoaapi.controller.interfaces;
 
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
