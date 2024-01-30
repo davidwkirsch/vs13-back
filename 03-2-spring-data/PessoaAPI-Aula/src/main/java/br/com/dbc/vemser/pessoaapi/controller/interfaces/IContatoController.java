@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller.interfaces;
 
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +23,7 @@ public interface IContatoController {
             }
     )
     @GetMapping
-    ResponseEntity<List<ContatoDTO>> list();
+    ResponseEntity<List<ContatoDTO>> list() throws RegraDeNegocioException;
 
     @Operation(summary = "Listar contatos pelo id", description = "Lista todos os contatos do banco que contenham o id informado")
     @ApiResponses(

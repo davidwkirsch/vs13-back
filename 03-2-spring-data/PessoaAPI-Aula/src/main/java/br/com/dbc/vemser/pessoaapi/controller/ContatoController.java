@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.controller.interfaces.IContatoController;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class ContatoController implements IContatoController {
     private final ContatoService contatoService;
 
     @GetMapping // GET localhost:8080/contato
-    public ResponseEntity<List<ContatoDTO>> list() {
+    public ResponseEntity<List<ContatoDTO>> list() throws RegraDeNegocioException {
         log.info("Buscando todos os contatos");
         List<ContatoDTO> contatoList = contatoService.list();
         log.info("Buscou todos os contatos");

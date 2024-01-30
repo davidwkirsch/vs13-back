@@ -34,7 +34,7 @@ public interface IEnderecoController {
             }
     )
     @GetMapping("/{idEndereco}")
-    ResponseEntity<EnderecoEntity> listByIdEndereco(@PathVariable("idEndereco") @Valid Integer idEndereco) throws Exception;
+    ResponseEntity<EnderecoDTO> listByIdEndereco(@PathVariable("idEndereco") @Valid Integer idEndereco) throws Exception;
 
     @Operation(summary = "Listar endereços pelo id da pessoa", description = "Lista todos os endereços do banco que contém o id da pessoa informada")
     @ApiResponses(
@@ -47,37 +47,37 @@ public interface IEnderecoController {
     @GetMapping("/{idPessoa}/pessoa")
     ResponseEntity<List<EnderecoDTO>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception;
 
-    @Operation(summary = "Criar endereço", description = "Cria um endereço no banco")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(responseCode = "201", description = "Cria e retorna o endereço criado"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
-    @PostMapping("/{idPessoa}")
-    ResponseEntity<EnderecoDTO> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid EnderecoCreateDTO endereco) throws Exception;
-
-    @Operation(summary = "Editar endereço", description = "Editar um endereço no banco")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(responseCode = "200", description = "Editar e retorna o endereço atualizado"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
-    @PutMapping("/{idEndereco}")
-    ResponseEntity<EnderecoDTO> update(@PathVariable("idEndereco") @Valid Integer id,
-                                              @RequestBody @Valid EnderecoCreateDTO enderecoAtualizar) throws Exception;
-
-    @Operation(summary = "Deletar endereço", description = "Deletar um endereço no banco")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(responseCode = "200", description = "Deleta o endereço"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
-    @DeleteMapping("/{idEndereco}")
-    ResponseEntity<String> delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception;
+//    @Operation(summary = "Criar endereço", description = "Cria um endereço no banco")
+//    @ApiResponses(
+//            value = {
+//                    @ApiResponse(responseCode = "201", description = "Cria e retorna o endereço criado"),
+//                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+//                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+//            }
+//    )
+//    @PostMapping("/{idPessoa}")
+//    ResponseEntity<EnderecoDTO> create(@PathVariable("idPessoa") Integer idPessoa, @RequestBody @Valid EnderecoCreateDTO endereco) throws Exception;
+//
+//    @Operation(summary = "Editar endereço", description = "Editar um endereço no banco")
+//    @ApiResponses(
+//            value = {
+//                    @ApiResponse(responseCode = "200", description = "Editar e retorna o endereço atualizado"),
+//                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+//                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+//            }
+//    )
+//    @PutMapping("/{idEndereco}")
+//    ResponseEntity<EnderecoDTO> update(@PathVariable("idEndereco") @Valid Integer id,
+//                                              @RequestBody @Valid EnderecoCreateDTO enderecoAtualizar) throws Exception;
+//
+//    @Operation(summary = "Deletar endereço", description = "Deletar um endereço no banco")
+//    @ApiResponses(
+//            value = {
+//                    @ApiResponse(responseCode = "200", description = "Deleta o endereço"),
+//                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+//                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+//            }
+//    )
+//    @DeleteMapping("/{idEndereco}")
+//    ResponseEntity<String> delete(@PathVariable("idEndereco") @Valid Integer id) throws Exception;
 }

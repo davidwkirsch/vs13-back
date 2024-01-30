@@ -10,8 +10,7 @@ import java.util.List;
 @Repository
 public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
 
-    public List<PessoaEntity> findAllByNomeContains(String nome);
+    List<PessoaEntity> findByCpf(String cpf);
 
-    public List<PessoaEntity> findByCpf(String cpf);
-
+    List<PessoaEntity> findAllByNomeContains(String nome);
 }

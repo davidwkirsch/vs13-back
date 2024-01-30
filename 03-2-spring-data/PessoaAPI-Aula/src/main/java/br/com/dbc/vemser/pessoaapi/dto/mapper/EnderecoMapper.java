@@ -9,7 +9,6 @@ public class EnderecoMapper {
 
     public static EnderecoEntity createEnderecoDtoToEndereco(EnderecoCreateDTO enderecoCreateDTO) {
         EnderecoEntity enderecoEntity = new EnderecoEntity();
-        enderecoEntity.setIdPessoa(enderecoCreateDTO.getIdPessoa());
         enderecoEntity.setIdEndereco(enderecoCreateDTO.getIdEndereco());
         enderecoEntity.setTipo(enderecoCreateDTO.getTipo());
         enderecoEntity.setLogradouro(enderecoCreateDTO.getLogradouro());
@@ -24,7 +23,6 @@ public class EnderecoMapper {
 
     public static EnderecoDTO enderecoToEnderecoResponseDto(EnderecoEntity enderecoEntity) {
         EnderecoDTO enderecoDto = new EnderecoDTO();
-        enderecoDto.setIdPessoa(enderecoEntity.getIdPessoa());
         enderecoDto.setIdEndereco(enderecoEntity.getIdEndereco());
         enderecoDto.setTipo(enderecoEntity.getTipo());
         enderecoDto.setLogradouro(enderecoEntity.getLogradouro());

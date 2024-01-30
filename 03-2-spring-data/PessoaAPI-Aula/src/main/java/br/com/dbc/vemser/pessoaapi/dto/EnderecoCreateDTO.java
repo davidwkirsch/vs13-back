@@ -17,9 +17,6 @@ import javax.validation.constraints.Size;
 @Schema(description = "Objeto de criação de ContatoEntity")
 public class EnderecoCreateDTO {
 
-        @Schema(description = "Id da PessoaEntity", hidden = true, example = "1")
-        @NotNull(message = "O id da pessoa não pode ser nulo")
-        private Integer idPessoa = 0;
 
         @Schema(description = "Id do Endereço (obrigatório somente ao editar)", example = "1")
         @NotNull(message = "O id do endereço não pode ser nulo")

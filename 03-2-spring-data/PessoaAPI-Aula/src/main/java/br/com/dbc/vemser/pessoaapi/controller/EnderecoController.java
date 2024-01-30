@@ -33,11 +33,11 @@ public class EnderecoController implements IEnderecoController {
     }
 
     @GetMapping("/{idEndereco}") // GET localhost:8081/endereco/?pessoa=1
-    public ResponseEntity<EnderecoEntity> listByIdEndereco(@PathVariable("idEndereco") @Valid Integer idEndereco) throws Exception {
+    public ResponseEntity<EnderecoDTO> listByIdEndereco(@PathVariable("idEndereco") @Valid Integer idEndereco) throws Exception {
         log.info("Buscando endereço com id {}", idEndereco);
-        EnderecoEntity enderecoEntity = enderecoService.getEnderecoById(idEndereco);
+        EnderecoDTO enderecos = enderecoService.getById(idEndereco);
         log.info("Buscou endereço com id {}", idEndereco);
-        return new ResponseEntity<>(enderecoEntity, HttpStatus.OK);
+        return new ResponseEntity<>(enderecos, HttpStatus.OK);
     }
 
     @GetMapping("/{idPessoa}/pessoa") // GET localhost:8081/endereco/?pessoa=1
