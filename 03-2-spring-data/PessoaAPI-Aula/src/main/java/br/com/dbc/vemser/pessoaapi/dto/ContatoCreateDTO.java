@@ -1,6 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +26,9 @@ public class ContatoCreateDTO {
     @Schema(description = "Id da PessoaEntity", required = true, example = "1")
     @NotNull(message = "O id da pessoa não pode ser nulo")
     private Integer idPessoa;
+
+    @Hidden
+    private PessoaEntity pessoaEntity;
 
     @Schema(description = "Tipo do ContatoEntity", required = true, example = "COMERCIAL")
     @NotNull(message = "O tipo de contato não pode ser nulo")

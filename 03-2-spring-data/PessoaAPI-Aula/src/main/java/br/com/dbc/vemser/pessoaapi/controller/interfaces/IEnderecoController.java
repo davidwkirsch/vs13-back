@@ -1,13 +1,13 @@
 package br.com.dbc.vemser.pessoaapi.controller.interfaces;
 
-import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,7 +45,7 @@ public interface IEnderecoController {
             }
     )
     @GetMapping("/{idPessoa}/pessoa")
-    ResponseEntity<List<EnderecoDTO>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception;
+    ResponseEntity<PessoaEnderecoDTO> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception;
 
 //    @Operation(summary = "Criar endereço", description = "Cria um endereço no banco")
 //    @ApiResponses(

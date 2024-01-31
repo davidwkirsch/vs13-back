@@ -17,13 +17,14 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Data
 @Schema(description = "Objeto de criação de ContatoEntity")
-public class EnderecoCreateDTO {
+public class EnderecoUpdateDTO {
 
 
         @Hidden
         private Integer idEndereco = 0;
 
-        @Hidden
+        @Schema(description = "Id da PessoaEntity", required = true, example = "1")
+        @NotNull(message = "O id da pessoa não pode ser nulo")
         private Integer idPessoa;
 
         @Hidden

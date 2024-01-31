@@ -34,7 +34,7 @@ public interface IContatoController {
             }
     )
     @GetMapping("/{idContato}")
-    ResponseEntity<List<ContatoDTO>> listById(@PathVariable("idContato") @Valid Integer idPessoa) throws Exception;
+    ResponseEntity<ContatoDTO> listByIdContato(@PathVariable("idContato") @Valid Integer idContato) throws Exception;
 
     @Operation(summary = "Criar contato", description = "Cria um contato no banco")
     @ApiResponses(

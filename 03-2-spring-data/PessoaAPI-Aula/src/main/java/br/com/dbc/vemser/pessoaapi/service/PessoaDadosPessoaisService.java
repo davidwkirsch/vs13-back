@@ -1,17 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
-import br.com.dbc.vemser.pessoaapi.dto.mapper.DadosPessoaisMapper;
-import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaDadosPessoaisMapper;
-import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

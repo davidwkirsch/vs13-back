@@ -3,18 +3,19 @@ package br.com.dbc.vemser.pessoaapi.service;
 import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoUpdateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.EnderecoMapper;
 import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
-import br.com.dbc.vemser.pessoaapi.entity.EnderecoPessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
-import br.com.dbc.vemser.pessoaapi.repository.EnderecoPessoaRepository;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,6 @@ public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
     private final PessoaService pessoaService;
-    private final EnderecoPessoaService enderecoPessoaService;
     private final PropertieReader propertieReader;
     private final EmailService emailService;
 
@@ -38,30 +38,28 @@ public class EnderecoService {
     }
 
     public List<EnderecoEntity> findByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
-        pessoaService.getById(idPessoa);
-        List<EnderecoPessoaEntity> listEndereco = enderecoPessoaService.findByIdPessoa(idPessoa);
-        return listEndereco.stream().map(enderecoPessoaEntity -> {
-            try {
-                return findById(enderecoPessoaEntity.getIdEndereco());
-            } catch (RegraDeNegocioException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).toList();
+        return enderecoRepository.findAllByPessoas(pessoaService.findById(idPessoa));
     }
 
     public EnderecoDTO getById(Integer idEndereco) throws RegraDeNegocioException {
         return EnderecoMapper.enderecoToEnderecoResponseDto(findById(idEndereco));
     }
 
-    public List<EnderecoDTO> getByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
-        return findByIdPessoa(idPessoa).stream()
-                .map(EnderecoMapper::enderecoToEnderecoResponseDto)
-                .toList();
+    public PessoaEnderecoDTO getByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
+        List<EnderecoEntity> enderecos = findByIdPessoa(idPessoa);
+        PessoaEnderecoDTO pessoaEnderecoDTO = new PessoaEnderecoDTO();
+        pessoaEnderecoDTO.setIdPessoa(idPessoa);
+        pessoaEnderecoDTO.setNome(pessoaService.findById(idPessoa).getNome());
+        pessoaEnderecoDTO.setDataNascimento(pessoaService.findById(idPessoa).getDataNascimento());
+        pessoaEnderecoDTO.setCpf(pessoaService.findById(idPessoa).getCpf());
+        pessoaEnderecoDTO.setEmail(pessoaService.findById(idPessoa).getEmail());
+        pessoaEnderecoDTO.setEnderecos(Set.copyOf(enderecos));
+        return pessoaEnderecoDTO;
     }
 
 
     public EnderecoDTO create(Integer idPessoa, EnderecoCreateDTO endereco) throws Exception{
+        endereco.setPessoaEntity(pessoaService.findById(idPessoa));
         EnderecoDTO createdEndereco = EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRepository.save(
                 EnderecoMapper.createEnderecoDtoToEndereco(endereco)));
         //emailService.sendEmail(pessoaService.getPessoaDTO(idPessoa), "Endereço criado!", EmailTemplates.ENDERECO_CRIADO);
@@ -69,9 +67,10 @@ public class EnderecoService {
         return createdEndereco;
     }
 
-    public EnderecoDTO update(EnderecoCreateDTO enderecoAtualizar) throws Exception {
+    public EnderecoDTO update(EnderecoUpdateDTO enderecoAtualizar) throws Exception {
         EnderecoEntity enderecoEntityRecuperado = findById(enderecoAtualizar.getIdEndereco());
 
+        // falta fazer algo com o id de pessoa
         enderecoEntityRecuperado.setTipo(enderecoAtualizar.getTipo());
         enderecoEntityRecuperado.setLogradouro(enderecoAtualizar.getLogradouro());
         enderecoEntityRecuperado.setNumero(enderecoAtualizar.getNumero());

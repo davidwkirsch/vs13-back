@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller.interfaces;
 
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
@@ -36,6 +38,17 @@ public interface IPessoaController {
     )
     @GetMapping("/")
     ResponseEntity<List<PessoaDTO>> listByName(@RequestParam("nome") @NotEmpty @Valid String nome) throws Exception;
+
+    @Operation(summary = "Listar contatos pelo id da pessoa", description = "Lista todos os contatos do banco que contenham o id da pessoa informado")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Retorna os contatos solicitados"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
+    @GetMapping("/{idPessoa}/contatos")
+    ResponseEntity<List<PessoaContatoDTO>> listByIdPessoa(@PathVariable("idPessoa") @Valid Integer idPessoa) throws Exception;
 
     @Operation(summary = "Criar pessoa", description = "Cria uma pessoa no banco")
     @ApiResponses(

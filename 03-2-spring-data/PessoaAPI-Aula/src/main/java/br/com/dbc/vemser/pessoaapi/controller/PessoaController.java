@@ -1,9 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.controller.interfaces.IPessoaController;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.*;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +21,11 @@ import java.util.List;
 @Tag(name = "PessoaEntity", description = "Endpoints do CRUD de PessoaEntity")
 @RestController
 @RequestMapping("/pessoa") // localhost:8081/pessoa
-public class PessoaController implements IPessoaController {
+//public class PessoaController implements IPessoaController {
+public class PessoaController {
 
     private final PessoaService pessoaService;
+    private final ContatoService contatoService;
 
     @GetMapping // GET localhost:8081/pessoa
     public ResponseEntity<List<PessoaDTO>> list() throws RegraDeNegocioException {
@@ -33,13 +35,37 @@ public class PessoaController implements IPessoaController {
         return new ResponseEntity<>(pessoaList, HttpStatus.OK);
     }
 
-    @GetMapping("/") // GET localhost:8081/pessoa/?nome=Rafa
-    public ResponseEntity<List<PessoaDTO>> listByName(@RequestParam("nome") @NotEmpty @Valid String nome) throws Exception{
-        log.info("Buscando pessoas pelo nome {}", nome);
-        List<PessoaDTO> pessoaList = pessoaService.listByName(nome);
-        log.info("Buscou pessoas pelo nome {}", nome);
+//    @GetMapping("/") // GET localhost:8081/pessoa/?nome=Rafa
+//    public ResponseEntity<List<PessoaDTO>> listByName(@RequestParam("nome") @NotEmpty @Valid String nome) throws Exception{
+//        log.info("Buscando pessoas pelo nome {}", nome);
+//        List<PessoaDTO> pessoaList = pessoaService.listByName(nome);
+//        log.info("Buscou pessoas pelo nome {}", nome);
+//        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+//    }
+
+    @GetMapping("/com-enderecos")
+    public ResponseEntity<List<PessoaEnderecoDTO>> list(@RequestParam(value = "idPessoa", required = false) @Valid Integer idPessoa) throws Exception{
+        log.info("Buscando pessoas pelo nome {}", idPessoa);
+        List<PessoaEnderecoDTO> pessoaList = pessoaService.getByIdEndereco(idPessoa);
+        log.info("Buscou pessoas pelo nome {}", idPessoa);
         return new ResponseEntity<>(pessoaList, HttpStatus.OK);
     }
+
+    @GetMapping("/com-contatos")
+    public ResponseEntity<List<PessoaContatoDTO>> listContatos(@RequestParam(value = "idPessoa", required = false) @Valid Integer idPessoa) throws Exception{
+        log.info("Buscando pessoas pelo nome {}", idPessoa);
+        List<PessoaContatoDTO> pessoaList = pessoaService.getByIdContato(idPessoa);
+        log.info("Buscou pessoas pelo nome {}", idPessoa);
+        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+    }
+
+//    @GetMapping("/com-enderecos")
+//    public ResponseEntity<List<PessoaDTO>> list(@RequestParam(value = "idPessoa", required = false) @Valid Integer idPessoa) throws Exception{
+//        log.info("Buscando pessoas pelo nome {}", idPessoa);
+//        List<PessoaDTO> pessoaList = pessoaService.getById(idPessoa);
+//        log.info("Buscou pessoas pelo nome {}", idPessoa);
+//        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+//    }
 
     @PostMapping // POST localhost:8081/pessoa
     public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {

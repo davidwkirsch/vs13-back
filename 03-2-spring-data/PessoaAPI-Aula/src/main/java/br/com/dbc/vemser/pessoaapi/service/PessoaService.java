@@ -1,8 +1,10 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.EntidadeNaoEncontradaException;
@@ -53,8 +55,14 @@ public class PessoaService {
     }
 
 
-    public PessoaDTO getById(Integer id) throws RegraDeNegocioException {
-        return PessoaMapper.pessoaToPessoaResponseDto(findById(id));
+    public List<PessoaEnderecoDTO> getByIdEndereco(Integer id) throws RegraDeNegocioException {
+        if (id == null) {return pessoaRepository.findAll().stream().map(PessoaMapper::pessoaToPessoaEnderecoDto).toList();}
+        return List.of(PessoaMapper.pessoaToPessoaEnderecoDto(findById(id)));
+    }
+
+    public List<PessoaContatoDTO> getByIdContato(Integer id) throws RegraDeNegocioException {
+        if (id == null) {return pessoaRepository.findAll().stream().map(PessoaMapper::toPessoaContatoDto).toList();}
+        return List.of(PessoaMapper.toPessoaContatoDto(findById(id)));
     }
 
     public PessoaDTO getByCpf(String cpf) throws RegraDeNegocioException {
@@ -63,7 +71,7 @@ public class PessoaService {
 
     //Encontrar por Nome
     public List<PessoaDTO> listByName(String nome) {
-        return pessoaRepository.findAllByNomeContains(nome).stream()
+        return pessoaRepository.findAllByNomeContainsIgnoreCase(nome).stream()
                 .map(PessoaMapper::pessoaToPessoaResponseDto)
                 .toList();
     }
@@ -108,7 +116,7 @@ public class PessoaService {
         }
     }
 
-    public PessoaDTO getPessoaDTO(Integer id) throws Exception {
-        return getById(id);
-    }
+//    public List<PessoaDTO> getPessoaDTO(Integer id) throws Exception {
+//        return getById(id);
+//    }
 }

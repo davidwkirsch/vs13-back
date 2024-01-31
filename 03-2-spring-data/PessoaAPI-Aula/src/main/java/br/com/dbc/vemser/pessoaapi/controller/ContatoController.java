@@ -33,10 +33,10 @@ public class ContatoController implements IContatoController {
     }
 
     @GetMapping("/{idContato}") // GET localhost:8081/contato/1
-    public ResponseEntity<List<ContatoDTO>> listById(@PathVariable("idContato") @Valid Integer idPessoa) throws Exception {
-        log.info("Buscando contatos pelo id {}", idPessoa);
-        List<ContatoDTO> contatoList = contatoService.listByIdPessoa(idPessoa);
-        log.info("Buscou contatos pelo id {}", idPessoa);
+    public ResponseEntity<ContatoDTO> listByIdContato(@PathVariable("idContato") @Valid Integer idContato) throws Exception {
+        log.info("Buscando contato com o id {}", idContato);
+        ContatoDTO contatoList = contatoService.listByIdContato(idContato);
+        log.info("Buscou contato com o id {}", idContato);
         return new ResponseEntity<>(contatoList, HttpStatus.OK);
     }
 

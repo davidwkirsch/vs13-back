@@ -1,9 +1,10 @@
 package br.com.dbc.vemser.pessoaapi.dto.mapper;
 
-import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.*;
+import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
+
+import java.util.Set;
 
 public class PessoaMapper {
     public static PessoaEntity createPessoaDtoToPessoa(PessoaCreateDTO pessoaCreateDTO) {
@@ -26,6 +27,17 @@ public class PessoaMapper {
         return pessoaDto;
     }
 
+    public static PessoaEnderecoDTO pessoaToPessoaEnderecoDto(PessoaEntity pessoaEntity) {
+        PessoaEnderecoDTO pessoaDto = new PessoaEnderecoDTO();
+        pessoaDto.setIdPessoa(pessoaEntity.getIdPessoa());
+        pessoaDto.setNome(pessoaEntity.getNome());
+        pessoaDto.setDataNascimento(pessoaEntity.getDataNascimento());
+        pessoaDto.setCpf(pessoaEntity.getCpf());
+        pessoaDto.setEmail(pessoaEntity.getEmail());
+        pessoaDto.setEnderecos(pessoaEntity.getEnderecos());
+        return pessoaDto;
+    }
+
     public static PessoaEntity pessoaDadosPessoaisToPessoaDto(PessoaDadosPessoaisDTO pessoa) {
         PessoaEntity pessoaEntityNova = new PessoaEntity();
         pessoaEntityNova.setNome(pessoa.getNome());
@@ -42,6 +54,28 @@ public class PessoaMapper {
         pessoaNova.setCpf(pessoa.getCpf());
         pessoaNova.setEmail(pessoa.getEmail());
         return pessoaNova;
+    }
+
+    public static PessoaContatoDTO toPessoaContatoDto(ContatoEntity contatoEntity) {
+        PessoaContatoDTO pessoaContatoDto = new PessoaContatoDTO();
+        pessoaContatoDto.setIdPessoa(contatoEntity.getPessoaEntity().getIdPessoa());
+        pessoaContatoDto.setNome(contatoEntity.getPessoaEntity().getNome());
+        pessoaContatoDto.setDataNascimento(contatoEntity.getPessoaEntity().getDataNascimento());
+        pessoaContatoDto.setCpf(contatoEntity.getPessoaEntity().getCpf());
+        pessoaContatoDto.setEmail(contatoEntity.getPessoaEntity().getEmail());
+        pessoaContatoDto.setContatos(Set.of(contatoEntity));
+        return pessoaContatoDto;
+    }
+
+    public static PessoaContatoDTO toPessoaContatoDto(PessoaEntity pessoaEntity) {
+        PessoaContatoDTO pessoaContatoDto = new PessoaContatoDTO();
+        pessoaContatoDto.setIdPessoa(pessoaEntity.getIdPessoa());
+        pessoaContatoDto.setNome(pessoaEntity.getNome());
+        pessoaContatoDto.setDataNascimento(pessoaEntity.getDataNascimento());
+        pessoaContatoDto.setCpf(pessoaEntity.getCpf());
+        pessoaContatoDto.setEmail(pessoaEntity.getEmail());
+        pessoaContatoDto.setContatos(pessoaEntity.getContatos());
+        return pessoaContatoDto;
     }
 
 }

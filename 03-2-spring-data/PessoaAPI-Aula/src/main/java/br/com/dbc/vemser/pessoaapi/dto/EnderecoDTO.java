@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class EnderecoDTO {
 
-    private Integer idPessoa = 0;
-    private Integer idEndereco = 0;
+    private Integer idEndereco;
     private TipoEndereco tipo;
     private String logradouro;
     private Integer numero;
