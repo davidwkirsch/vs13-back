@@ -4,7 +4,7 @@ import br.com.dbc.vemser.pessoaapi.dto.ProfessorCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ProfessorDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.ProfessorMapper;
 import br.com.dbc.vemser.pessoaapi.entity.ProfessorEntity;
-import br.com.dbc.vemser.pessoaapi.entity.ProfessorPK;
+import br.com.dbc.vemser.pessoaapi.entity.pk.ProfessorPK;
 import br.com.dbc.vemser.pessoaapi.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

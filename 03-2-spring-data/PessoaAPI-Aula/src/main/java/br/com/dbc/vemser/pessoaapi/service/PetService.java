@@ -2,8 +2,8 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.PetCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PetDTO;
-import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PetMapper;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.PetEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PetRepository;
@@ -36,10 +36,12 @@ public class PetService {
         return PetMapper.toDTO(petRepository.save(petEntity));
     }
 
-    public PetDTO delete(Integer idPet) throws RegraDeNegocioException {
-        PetEntity petEntity = petRepository.findById(idPet)
-                .orElseThrow(() -> new RegraDeNegocioException("Pet não encontrado!"));
-        petRepository.delete(petEntity);
+    public PetDTO delete(Integer idPet) throws Exception {
+        PetEntity petEntity = petRepository.getById(idPet);
+        PessoaEntity pessoaEntityRecuperada = pessoaService.findById(petEntity.getPessoa().getIdPessoa());
+        pessoaEntityRecuperada.setPets(null);
+        pessoaService.save(pessoaEntityRecuperada);
+        petRepository.deleteById(idPet);
         return PetMapper.toDTO(petEntity);
     }
     public List<PetDTO> getAll() throws RegraDeNegocioException {

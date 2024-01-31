@@ -1,14 +1,15 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "PET")
@@ -28,7 +29,8 @@ public class PetEntity {
     private TipoPet tipo;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")
+    @OneToOne(mappedBy = "pets")
+    @ToString.Exclude
     private PessoaEntity pessoa;
+
 }

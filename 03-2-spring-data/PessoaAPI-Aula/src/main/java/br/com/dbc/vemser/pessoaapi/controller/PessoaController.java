@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -42,6 +40,14 @@ public class PessoaController {
         log.info("Buscando pessoas pelo nome {}", nome);
         List<PessoaDTO> pessoaList = pessoaService.listByName(nome);
         log.info("Buscou pessoas pelo nome {}", nome);
+        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/", params = "id")
+    public ResponseEntity<PessoaDTO> listById(@RequestParam(value = "id", required = false) @Valid Integer id) throws Exception{
+        log.info("Buscando pessoas pelo id {}", id);
+        PessoaDTO pessoaList = pessoaService.getById(id);
+        log.info("Buscou pessoas pelo id {}", id);
         return new ResponseEntity<>(pessoaList, HttpStatus.OK);
     }
 

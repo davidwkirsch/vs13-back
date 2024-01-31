@@ -46,8 +46,9 @@ public class EnderecoEntity {
         @Column(name = "pais")
         private String pais;
 
-//        @JsonIgnore
+        @JsonIgnore
         @ManyToMany(mappedBy = "enderecos", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        @ToString.Exclude
         private Set<PessoaEntity> pessoas;
 
 }

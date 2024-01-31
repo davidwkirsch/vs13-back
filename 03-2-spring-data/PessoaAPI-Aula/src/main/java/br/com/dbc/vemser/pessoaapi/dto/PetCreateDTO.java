@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
-import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.TipoPet;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Data;

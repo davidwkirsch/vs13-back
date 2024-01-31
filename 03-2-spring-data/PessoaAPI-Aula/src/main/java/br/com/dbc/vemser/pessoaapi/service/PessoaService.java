@@ -9,11 +9,9 @@ import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -46,6 +44,10 @@ public class PessoaService {
     public PessoaEntity findById(Integer id) throws RegraDeNegocioException {
         return pessoaRepository.findById(id)
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
+    }
+
+    public PessoaDTO getById(Integer id) throws RegraDeNegocioException {
+        return PessoaMapper.pessoaToPessoaResponseDto(findById(id));
     }
 
     //Encontrar por CPF
@@ -96,11 +98,16 @@ public class PessoaService {
         return updatedPessoa;
     }
 
+    public PessoaEntity save(PessoaEntity pessoaEntity) throws Exception {
+        return pessoaRepository.save(pessoaEntity);
+    }
+
 
     public void delete(Integer id) throws Exception {
         if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
-
         PessoaEntity pessoaEntityRecuperada = findById(id);
+        pessoaEntityRecuperada.setPets(null);
+        pessoaRepository.save(pessoaEntityRecuperada);
         pessoaRepository.delete(pessoaEntityRecuperada);
 //            emailService.sendEmail(PessoaMapper.pessoaToPessoaResponseDto(pessoaEntityRecuperada), "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
         log.info("E-mail enviado!");
@@ -125,7 +132,4 @@ public class PessoaService {
                 .toList();
     }
 
-//    public List<PessoaDTO> getPessoaDTO(Integer id) throws Exception {
-//        return getById(id);
-//    }
 }

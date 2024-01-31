@@ -7,5 +7,5 @@ import java.util.Set;
 
 @Data
 public class PessoaPetDTO extends PessoaDTO {
-    private Set<PetEntity> pets;
+    private PetEntity pets;
 }

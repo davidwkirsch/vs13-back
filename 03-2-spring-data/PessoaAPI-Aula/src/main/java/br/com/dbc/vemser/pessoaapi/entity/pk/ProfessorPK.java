@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.entity;
+package br.com.dbc.vemser.pessoaapi.entity.pk;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

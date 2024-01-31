@@ -2,7 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.dto.ProfessorCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ProfessorDTO;
-import br.com.dbc.vemser.pessoaapi.entity.ProfessorPK;
+import br.com.dbc.vemser.pessoaapi.entity.pk.ProfessorPK;
 import br.com.dbc.vemser.pessoaapi.service.ProfessorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
