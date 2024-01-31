@@ -1,10 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.interfaces.IEnderecoController;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoUpdateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +45,14 @@ public class EnderecoController {
         log.info("Criando endereço para pessoa com id {}", idPessoa);
         EnderecoDTO createdEndereco = enderecoService.create(idPessoa, endereco);
         log.info("Criou endereço para pessoa com id {}", idPessoa);
+        return new ResponseEntity<>(createdEndereco, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{idEndereco}/adicionar-pessoa/{idPessoa}")// POST localhost:8080/endereco
+    public ResponseEntity<EnderecoDTO> addPessoa(@PathVariable("idEndereco") Integer idEndereco, @PathVariable("idPessoa") Integer idPessoa) throws Exception {
+        log.info("Adicionando pessoa com id {} ao endereço com id {}", idPessoa, idEndereco);
+        EnderecoDTO createdEndereco = enderecoService.adicionarPessoa(idEndereco, idPessoa);
+        log.info("Adicionou pessoa com id {} ao endereço com id {}", idPessoa, idEndereco);
         return new ResponseEntity<>(createdEndereco, HttpStatus.CREATED);
     }
 

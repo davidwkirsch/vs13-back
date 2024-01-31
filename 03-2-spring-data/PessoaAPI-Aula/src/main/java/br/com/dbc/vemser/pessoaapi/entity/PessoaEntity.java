@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class PessoaEntity {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "PESSOA_X_PESSOA_ENDERECO",
             joinColumns = @JoinColumn(name = "id_pessoa"),
@@ -47,5 +49,9 @@ public class PessoaEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ContatoEntity> contatos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true)
+    private Set<PetEntity> pets;
 
 }

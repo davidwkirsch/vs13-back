@@ -1,10 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaContatoDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.*;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.EntidadeNaoEncontradaException;
@@ -12,8 +9,11 @@ import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -65,6 +65,11 @@ public class PessoaService {
         return List.of(PessoaMapper.toPessoaContatoDto(findById(id)));
     }
 
+    public List<PessoaPetDTO> getByIdPet(Integer id) throws RegraDeNegocioException {
+        if (id == null) {return pessoaRepository.findAll().stream().map(PessoaMapper::toPessoaPetDto).toList();}
+        return List.of(PessoaMapper.toPessoaPetDto(findById(id)));
+    }
+
     public PessoaDTO getByCpf(String cpf) throws RegraDeNegocioException {
         return PessoaMapper.pessoaToPessoaResponseDto(findByCpf(cpf));
     }
@@ -94,14 +99,11 @@ public class PessoaService {
 
     public void delete(Integer id) throws Exception {
         if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
-        try {
-            PessoaEntity pessoaEntityRecuperada = findById(id);
-            pessoaRepository.delete(pessoaEntityRecuperada);
-            emailService.sendEmail(PessoaMapper.pessoaToPessoaResponseDto(pessoaEntityRecuperada), "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
-            log.info("E-mail enviado!");
-        } catch (EntidadeNaoEncontradaException ex) {
-            ex.printStackTrace();
-        }
+
+        PessoaEntity pessoaEntityRecuperada = findById(id);
+        pessoaRepository.delete(pessoaEntityRecuperada);
+//            emailService.sendEmail(PessoaMapper.pessoaToPessoaResponseDto(pessoaEntityRecuperada), "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
+        log.info("E-mail enviado!");
     }
 
     public void delete(String cpf) throws Exception {
@@ -114,6 +116,13 @@ public class PessoaService {
         } catch (EntidadeNaoEncontradaException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<PessoaDTO> getByDataNascimento(String dataInicio, String dataFinal) {
+
+        return pessoaRepository.findAllByDataNascimentoGreaterThanAndDataNascimentoLessThan(LocalDate.parse(dataInicio), LocalDate.parse(dataFinal)).stream()
+                .map(PessoaMapper::pessoaToPessoaResponseDto)
+                .toList();
     }
 
 //    public List<PessoaDTO> getPessoaDTO(Integer id) throws Exception {

@@ -7,9 +7,9 @@ import br.com.dbc.vemser.pessoaapi.dto.EnderecoUpdateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaEnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.EnderecoMapper;
 import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
-import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,34 +37,19 @@ public class EnderecoService {
                 .orElseThrow(() -> new RegraDeNegocioException("EnderecoEntity não encontrado!"));
     }
 
-    public List<EnderecoEntity> findByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
-        return enderecoRepository.findAllByPessoas(pessoaService.findById(idPessoa));
-    }
-
     public EnderecoDTO getById(Integer idEndereco) throws RegraDeNegocioException {
         return EnderecoMapper.enderecoToEnderecoResponseDto(findById(idEndereco));
     }
 
-    public PessoaEnderecoDTO getByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
-        List<EnderecoEntity> enderecos = findByIdPessoa(idPessoa);
-        PessoaEnderecoDTO pessoaEnderecoDTO = new PessoaEnderecoDTO();
-        pessoaEnderecoDTO.setIdPessoa(idPessoa);
-        pessoaEnderecoDTO.setNome(pessoaService.findById(idPessoa).getNome());
-        pessoaEnderecoDTO.setDataNascimento(pessoaService.findById(idPessoa).getDataNascimento());
-        pessoaEnderecoDTO.setCpf(pessoaService.findById(idPessoa).getCpf());
-        pessoaEnderecoDTO.setEmail(pessoaService.findById(idPessoa).getEmail());
-        pessoaEnderecoDTO.setEnderecos(Set.copyOf(enderecos));
-        return pessoaEnderecoDTO;
-    }
-
-
     public EnderecoDTO create(Integer idPessoa, EnderecoCreateDTO endereco) throws Exception{
-        endereco.setPessoaEntity(pessoaService.findById(idPessoa));
-        EnderecoDTO createdEndereco = EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRepository.save(
-                EnderecoMapper.createEnderecoDtoToEndereco(endereco)));
+        PessoaEntity pessoaEntity = pessoaService.findById(idPessoa);
+        endereco.setPessoaEntity(pessoaEntity);
+        EnderecoEntity createdEndereco = EnderecoMapper.createEnderecoDtoToEndereco(endereco);
+        pessoaEntity.getEnderecos().add(createdEndereco);
+        EnderecoDTO enderecoDTO = EnderecoMapper.enderecoToEnderecoResponseDto(enderecoRepository.save(createdEndereco));
         //emailService.sendEmail(pessoaService.getPessoaDTO(idPessoa), "Endereço criado!", EmailTemplates.ENDERECO_CRIADO);
         log.info("E-mail enviado!");
-        return createdEndereco;
+        return enderecoDTO;
     }
 
     public EnderecoDTO update(EnderecoUpdateDTO enderecoAtualizar) throws Exception {
@@ -95,4 +80,12 @@ public class EnderecoService {
         log.info("E-mail enviado!");
     }
 
+    public EnderecoDTO adicionarPessoa(Integer idEndereco, Integer idPessoa) throws RegraDeNegocioException {
+        EnderecoEntity enderecoEntity = enderecoRepository.findById(idEndereco).get();
+        PessoaEntity pessoaEntity = pessoaService.findById(idPessoa);
+        enderecoEntity.getPessoas().add(pessoaEntity);
+        pessoaEntity.getEnderecos().add(enderecoEntity);
+        enderecoRepository.save(enderecoEntity);
+        return EnderecoMapper.enderecoToEnderecoResponseDto(enderecoEntity);
+    }
 }

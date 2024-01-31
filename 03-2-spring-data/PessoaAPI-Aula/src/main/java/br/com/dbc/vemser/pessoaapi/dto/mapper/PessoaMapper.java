@@ -78,4 +78,15 @@ public class PessoaMapper {
         return pessoaContatoDto;
     }
 
+    public static PessoaPetDTO toPessoaPetDto(PessoaEntity pessoaEntity) {
+        PessoaPetDTO pessoaPetDto = new PessoaPetDTO();
+        pessoaPetDto.setIdPessoa(pessoaEntity.getIdPessoa());
+        pessoaPetDto.setNome(pessoaEntity.getNome());
+        pessoaPetDto.setDataNascimento(pessoaEntity.getDataNascimento());
+        pessoaPetDto.setCpf(pessoaEntity.getCpf());
+        pessoaPetDto.setEmail(pessoaEntity.getEmail());
+        pessoaPetDto.setPets(pessoaEntity.getPets());
+        return pessoaPetDto;
+    }
+
 }

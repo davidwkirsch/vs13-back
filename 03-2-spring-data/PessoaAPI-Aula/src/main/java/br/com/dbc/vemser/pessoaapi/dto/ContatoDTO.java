@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
-import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
 import lombok.AllArgsConstructor;
 import lombok.Data;
