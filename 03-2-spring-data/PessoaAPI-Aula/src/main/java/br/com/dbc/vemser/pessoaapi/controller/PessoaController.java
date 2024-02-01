@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.dto.*;
+import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
@@ -37,7 +38,7 @@ public class PessoaController {
 
 
     @GetMapping("/pessoa-completo")
-    public ResponseEntity<List<PessoaFullDTO>> pessoaFull(@RequestParam(value = "id", required = false) @Valid Integer id) throws Exception{
+    public ResponseEntity<List<PessoaFullDTO>> pessoaFull(@RequestParam(value = "id", required = false, defaultValue = "-1") @Valid Integer id) throws Exception{
         List<PessoaFullDTO> pessoaList = pessoaRepository.procurarPessoaComEnderecoContatoPet(id);
         return new ResponseEntity<>(pessoaList, HttpStatus.OK);
     }
