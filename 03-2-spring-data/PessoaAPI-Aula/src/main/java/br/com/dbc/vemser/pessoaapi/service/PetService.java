@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.PetCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PetDTO;
+import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PetMapper;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.PetEntity;
@@ -36,13 +37,14 @@ public class PetService {
         return PetMapper.toDTO(petRepository.save(petEntity));
     }
 
-    public PetDTO delete(Integer idPet) throws Exception {
+    public void delete(Integer idPet) throws Exception {
         PetEntity petEntity = petRepository.getById(idPet);
+        log.info("PetEntity recuperado: {}", petEntity);
         PessoaEntity pessoaEntityRecuperada = pessoaService.findById(petEntity.getPessoa().getIdPessoa());
         pessoaEntityRecuperada.setPets(null);
+        petEntity.setPessoa(null);
         pessoaService.save(pessoaEntityRecuperada);
-        petRepository.deleteById(idPet);
-        return PetMapper.toDTO(petEntity);
+        petRepository.delete(petEntity);
     }
     public List<PetDTO> getAll() throws RegraDeNegocioException {
         return list().stream()

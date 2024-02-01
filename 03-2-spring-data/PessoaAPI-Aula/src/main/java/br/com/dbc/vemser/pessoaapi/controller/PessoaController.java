@@ -1,7 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.dto.*;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -24,7 +26,22 @@ import java.util.List;
 public class PessoaController {
 
     private final PessoaService pessoaService;
-    private final ContatoService contatoService;
+    private final PessoaRepository pessoaRepository;
+
+
+//    @GetMapping("/endereco")
+//    public ResponseEntity<List<PessoaEntity>> listEnderecosTest() throws Exception{
+//        List<PessoaEntity> pessoaList = pessoaRepository.findAllByEnderecosIsNotNull();
+//        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+//    }
+
+
+    @GetMapping("/pessoa-completo")
+    public ResponseEntity<List<PessoaFullDTO>> pessoaFull(@RequestParam(value = "id", required = false) @Valid Integer id) throws Exception{
+        List<PessoaFullDTO> pessoaList = pessoaRepository.procurarPessoaComEnderecoContatoPet(id);
+        return new ResponseEntity<>(pessoaList, HttpStatus.OK);
+    }
+
 
     @Hidden
     @GetMapping // GET localhost:8081/pessoa

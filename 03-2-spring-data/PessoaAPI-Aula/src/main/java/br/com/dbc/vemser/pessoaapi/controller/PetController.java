@@ -54,9 +54,9 @@ public class PetController {
     @DeleteMapping("/deletar") // DELETE localhost:8081/pet/1000
     public ResponseEntity<PetDTO> delete(@RequestParam("idPet") @Valid Integer idPet) throws Exception {
         log.info("Deletando pet com id {}", idPet);
-        PetDTO deletedPet = petService.delete(idPet);
+        petService.delete(idPet);
         log.info("Deletou pet com id {}", idPet);
-        return new ResponseEntity<>(deletedPet, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

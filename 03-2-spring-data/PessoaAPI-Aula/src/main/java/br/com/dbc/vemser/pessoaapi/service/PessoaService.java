@@ -4,11 +4,15 @@ import br.com.dbc.vemser.pessoaapi.config.PropertieReader;
 import br.com.dbc.vemser.pessoaapi.dto.*;
 import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
+import br.com.dbc.vemser.pessoaapi.entity.PetEntity;
 import br.com.dbc.vemser.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.collection.internal.PersistentSortedMap;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,6 +22,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class PessoaService {
+    private final ContatoRepository contatoRepository;
+    private final PetRepository petRepository;
 
     private final PessoaRepository pessoaRepository;
     private final PropertieReader propertieReader;
@@ -106,9 +112,20 @@ public class PessoaService {
     public void delete(Integer id) throws Exception {
         if (!propertieReader.getAdmin()) throw new RegraDeNegocioException("Não é possível deletar pessoas sem ser o administrador");
         PessoaEntity pessoaEntityRecuperada = findById(id);
-        pessoaEntityRecuperada.setPets(null);
-        pessoaRepository.save(pessoaEntityRecuperada);
-        pessoaRepository.delete(pessoaEntityRecuperada);
+        if (pessoaEntityRecuperada.getPets() == null) {
+            contatoRepository.deleteAll(contatoRepository.findByPessoaEntity(pessoaEntityRecuperada));
+            pessoaRepository.delete(pessoaEntityRecuperada);
+//            emailService.sendEmail(PessoaMapper.pessoaToPessoaResponseDto(pessoaEntityRecuperada), "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
+            return;
+        } else {
+            PetEntity petEntity = pessoaEntityRecuperada.getPets();
+            pessoaEntityRecuperada.setPets(null);
+            petEntity.setPessoa(null);
+            save(pessoaEntityRecuperada);
+            petRepository.delete(petEntity);
+            contatoRepository.deleteAll(contatoRepository.findByPessoaEntity(pessoaEntityRecuperada));
+            pessoaRepository.delete(findById(id));
+        }
 //            emailService.sendEmail(PessoaMapper.pessoaToPessoaResponseDto(pessoaEntityRecuperada), "Sua conta foi deletada!", EmailTemplates.DELETAR_CONTA);
         log.info("E-mail enviado!");
     }
