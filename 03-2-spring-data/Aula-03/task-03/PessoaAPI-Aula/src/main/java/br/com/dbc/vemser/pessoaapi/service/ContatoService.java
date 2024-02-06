@@ -65,9 +65,12 @@ public class ContatoService {
     }
 
     public ContatoDTO update(Integer id, ContatoCreateDTO contatoAtualizar) throws Exception {
-        findById(id);
-        contatoAtualizar.setIdContato(id);
-        ContatoEntity contatoEntityRecuperado = ContatoMapper.createContatoDtoToContato(contatoAtualizar);
+        ContatoEntity contatoEntityRecuperado = findById(id);
+
+        contatoEntityRecuperado.setPessoaEntity(pessoaService.findById(contatoAtualizar.getIdPessoa()));
+        contatoEntityRecuperado.setNumero(contatoAtualizar.getNumero());
+        contatoEntityRecuperado.setDescricao(contatoAtualizar.getDescricao());
+        contatoEntityRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
         contatoRepository.save(contatoEntityRecuperado);
         return ContatoMapper.contatoToContatoResponseDto(contatoEntityRecuperado);
     }
