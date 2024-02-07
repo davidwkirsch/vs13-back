@@ -13,14 +13,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;;
+    private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Optional<UsuarioEntity> findByLogin(String login) {
         return usuarioRepository.findByLogin(login);
     }
 
     public UsuarioDTO createUsuario(UsuarioCreateDTO usuario) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         UsuarioEntity novoUsuario = new UsuarioEntity();
         novoUsuario.setLogin(usuario.getLogin());
         novoUsuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));

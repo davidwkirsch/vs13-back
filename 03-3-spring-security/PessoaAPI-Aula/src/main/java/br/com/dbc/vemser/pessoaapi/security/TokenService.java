@@ -16,7 +16,6 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class TokenService {
-    static final String HEADER_STRING = "Authorization";
 
     private static final String TOKEN_PREFIX = "Bearer";
 
@@ -25,9 +24,7 @@ public class TokenService {
 
     @Value("${jwt.secret}")
     private String secret;
-    private final UsuarioService usuarioService;
 
-    // Novo
     public String generateToken(UsuarioEntity usuarioEntity) {
         Date now = new Date();
         Date exp = new Date(now.getTime() + Long.parseLong(expiration));

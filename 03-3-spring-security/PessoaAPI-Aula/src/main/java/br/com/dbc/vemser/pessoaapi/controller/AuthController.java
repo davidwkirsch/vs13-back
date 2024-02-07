@@ -26,9 +26,9 @@ import javax.validation.Valid;
 @Validated
 @RequiredArgsConstructor
 public class AuthController {
+
     private final UsuarioService usuarioService;
     private final TokenService tokenService;
-
     public final AuthenticationManager authenticationManager;
 
     @PostMapping
