@@ -12,7 +12,6 @@ import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.collection.internal.PersistentSortedMap;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

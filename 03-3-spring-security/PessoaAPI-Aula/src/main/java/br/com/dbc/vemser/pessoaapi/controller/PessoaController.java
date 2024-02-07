@@ -1,11 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.dto.*;
-import br.com.dbc.vemser.pessoaapi.dto.mapper.PessoaMapper;
-import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
-import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Integer> {
 
-    List<EnderecoEntity> findAllByPessoas(PessoaEntity pessoaEntity);
 
     @Query(value = "SELECT * FROM ENDERECO_PESSOA WHERE ENDERECO_PESSOA.PAIS LIKE %?1%",
             nativeQuery = true)

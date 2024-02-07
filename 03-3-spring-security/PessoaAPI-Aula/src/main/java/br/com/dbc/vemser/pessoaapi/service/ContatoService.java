@@ -49,10 +49,6 @@ public class ContatoService {
         return contatoRepository.findByPessoaEntity(pessoaService.findById(idPessoa));
     }
 
-    public ContatoDTO getById(Integer id) throws RegraDeNegocioException {
-        return ContatoMapper.contatoToContatoResponseDto(findById(id));
-    }
-
     public ContatoDTO listByIdContato(Integer idContato) throws Exception {
         ContatoEntity contato = findById(idContato);
         return ContatoMapper.contatoToContatoResponseDto(contato);

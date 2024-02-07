@@ -1,9 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
-import br.com.dbc.vemser.pessoaapi.dto.PessoaContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaFullDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
-import br.com.dbc.vemser.pessoaapi.entity.PetEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

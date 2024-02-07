@@ -2,10 +2,8 @@ package br.com.dbc.vemser.pessoaapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter

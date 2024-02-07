@@ -18,11 +18,11 @@ public class ProfessorService {
 
     private final ProfessorRepository professorRepository;
 
-    public List<ProfessorEntity> findAll() throws Exception{
+    public List<ProfessorEntity> findAll() {
         return professorRepository.findAll();
     }
 
-    public List<ProfessorDTO> getAll() throws Exception {
+    public List<ProfessorDTO> getAll() {
         return findAll().stream().map(ProfessorMapper::toDTO).toList();
     }
 
@@ -35,14 +35,6 @@ public class ProfessorService {
         professor.setNome(professorEntity.getNome());
         professor.setSalario(professorEntity.getSalario());
         return ProfessorMapper.toDTO(professorRepository.save(professor));
-    }
-
-    public ProfessorEntity findById(ProfessorPK id) {
-        return professorRepository.findById(id).orElse(null);
-    }
-
-    public ProfessorDTO getById(ProfessorPK id) {
-        return ProfessorMapper.toDTO(findById(id));
     }
 
     public List<ProfessorEntity> listByName(String nome) {
