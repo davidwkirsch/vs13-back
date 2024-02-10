@@ -44,7 +44,8 @@
 
 | Aula | Tópico                           | Task                                                                                                                |
 |------|----------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| 01   | Fundamentos    |[task-01](https://github.com/DavidKirsch-DBC/vs13-back/tree/main/03-3-spring-security/Aula-01/task-01/PessoaAPI-Aula)|
-| 02   | jwt    |[task-01](https://github.com/DavidKirsch-DBC/vs13-back/tree/main/03-3-spring-security/Aula-02/task-02/PessoaAPI-Aula)|
+| 01   | Fundamentos                      |[task-01](https://github.com/DavidKirsch-DBC/vs13-back/tree/main/03-3-spring-security/Aula-01/task-01/PessoaAPI-Aula)|
+| 02   | JWT + Criptografia               |[task-02](https://github.com/DavidKirsch-DBC/vs13-back/tree/main/03-3-spring-security/Aula-02/task-02/PessoaAPI-Aula)|
+| 03   | Regras e Permissionamento        |[task-03](https://github.com/DavidKirsch-DBC/vs13-back/tree/main/03-3-spring-security/Aula-03/task-03/PessoaAPI-Aula)|
 
 
