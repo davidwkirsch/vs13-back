@@ -2,7 +2,6 @@ package br.com.dbc.vemser.pessoaapi.security;
 
 import br.com.dbc.vemser.pessoaapi.entity.CargoEntity;
 import br.com.dbc.vemser.pessoaapi.entity.UsuarioEntity;
-import br.com.dbc.vemser.pessoaapi.service.UsuarioService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -62,9 +60,7 @@ public class TokenService {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(user, null, authorities);
-                return usernamePasswordAuthenticationToken;
+                return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
         }
         return null;
