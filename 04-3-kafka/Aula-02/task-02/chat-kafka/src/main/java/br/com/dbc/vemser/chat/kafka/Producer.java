@@ -56,13 +56,6 @@ public class Producer {
         });
     }
 
-    public void sendToChatGeral(MensagemCreateDTO mensagemCreateDTO) throws JsonProcessingException {
-        MensagemDTO mensagemDTO = objectMapper.convertValue(mensagemCreateDTO, MensagemDTO.class);
-        mensagemDTO.setDataCriacao(LocalDateTime.now());
-        mensagemDTO.setUsuario(NomeChat.DAVID_WINTER_KIRSCH.name());
-        send(mensagemDTO, NomeChat.AA_GERAL);
-    }
-
     public void sendTo(String mensagem, NomeChat nomeChat) throws JsonProcessingException {
         MensagemDTO mensagemDTO = new MensagemDTO();
         mensagemDTO.setMensagem(mensagem);
